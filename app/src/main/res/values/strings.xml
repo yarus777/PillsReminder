@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">DrugsReminder</string>
+
+    <string name="first_aid_kit">Аптечка</string>
+    <string name="schedule">Расписание</string>
+    <string name="add_medicine">Добавить лекарство</string>
+    <string name="add_measurement">Добавить измерение</string>
+
+    <string name="medicine_name">Название лекарства</string>
+    <string name="dosage">Дозирвка</string>
+    <string name="taking_start">Начало приема</string>
+    <string name="taking_end">Окончание приема</string>
+
+    <string name="spoon">Ложка</string>
+    <string name="ampule">Ампула</string>
+    <string name="pill">Таблетка</string>
+    <string name="capsule">Капсула</string>
+    <string name="powder">Порошок</string>
+    <string name="injection">Укол</string>
+    <string name="drop">Капля</string>
+    <string name="inhalation">Ингаляция</string>
+    <string name="suppository">Суппозитория</string>
+
+</resources>
