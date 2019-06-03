@@ -7,9 +7,24 @@
     <string name="add_measurement">Добавить измерение</string>
 
     <string name="medicine_name">Название лекарства</string>
-    <string name="dosage">Дозирвка</string>
-    <string name="taking_start">Начало приема</string>
-    <string name="taking_end">Окончание приема</string>
+    <string name="dosage">Дозировка</string>
+    <string name="start_date">Дата начала</string>
+    <string name="till_date">До даты</string>
+    <string name="no_end_date">Без даты окончания</string>
+    <string name="within_x_days">В течение X дней</string>
+    <string name="duration">Продолжительность</string>
+    <string name="daily">Ежедневно</string>
+    <string name="certain_week_days">Определенные дни недели</string>
+    <string name="every_x_days">Каждые Х дня(дней)</string>
+    <string name="cycle">Цикл: X дни активно, Y дни пропуск</string>
+    <string name="receipt_time">Время приема</string>
+    <string name="x_times_a_day">X раз в день</string>
+    <string name="every_x_hours_a_day">Каждые Х часов в день</string>
+    <string name="frequency">Частота</string>
+    <string name="time">Время</string>
+    <string name="till">До</string>
+
+    <string name="save">Сохранить</string>
 
     <string name="spoon">Ложка</string>
     <string name="ampule">Ампула</string>

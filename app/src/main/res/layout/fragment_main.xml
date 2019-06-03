@@ -3,14 +3,14 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              xmlns:fab="http://schemas.android.com/apk/res-auto"
                                              android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+                                             android:layout_height="match_parent"
+                                             android:background="@color/light_gray">
 
     <devs.mulham.horizontalcalendar.HorizontalCalendarView
             android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:background="@color/colorPrimary"
+            android:background="@android:color/white"
             fab:layout_constraintTop_toTopOf="parent"
             fab:textColorSelected="@color/yellow_green"
             fab:sizeBottomText="14sp"

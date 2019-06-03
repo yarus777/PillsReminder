@@ -21,6 +21,20 @@
     <fragment android:id="@+id/addMedicineFragment"
               android:name="com.template.drugsreminder.addmedicine.AddMedicineFragment"
               android:label="AddMedicine"
-              tools:layout="@layout/fragment_add_medicine"/>
+              tools:layout="@layout/fragment_add_medicine">
+        <action android:id="@+id/action_addMedicine_to_duration"
+                app:destination="@id/durationFragment"/>
+        <action android:id="@+id/action_addMedicine_to_frequency"
+                app:destination="@id/frequencyFragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/durationFragment"
+              android:name="com.template.drugsreminder.duration.DurationFragment"
+              android:label="DurationFragment"
+              tools:layout="@layout/fragment_duration"/>
+    <fragment android:id="@+id/frequencyFragment"
+              android:name="com.template.drugsreminder.frequency.FrequencyFragment"
+              android:label="FrequencyFragment"
+    tools:layout="@layout/fragment_frequency"/>
 
 </navigation>
