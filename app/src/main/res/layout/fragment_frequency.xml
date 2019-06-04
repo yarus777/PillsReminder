@@ -1,31 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent" android:layout_height="match_parent"
               android:padding="14dp"
               android:orientation="vertical"
               android:background="@color/light_gray">
 
-    <RadioGroup android:layout_width="match_parent"
+    <RadioGroup
+            android:id="@+id/frequency_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+        <RadioButton
+                android:id="@+id/daily_radio_btn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
+                android:text="@string/daily"/>
 
-        <RadioButton android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:text="@string/daily"/>
+        <RadioButton
+                android:id="@+id/every_x_days_radio_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/every_x_days"/>
 
-        <RadioButton android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:text="@string/every_x_days"/>
+        <RadioButton
+                android:id="@+id/certain_week_days_radio_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/certain_week_days"/>
 
-        <RadioButton android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:text="@string/certain_week_days"/>
-
-        <RadioButton android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:text="@string/cycle"/>
+        <RadioButton
+                android:id="@+id/cycle_radio_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cycle"/>
     </RadioGroup>
+
+    <include layout="@layout/separator_view"/>
+
+    <LinearLayout
+            android:id="@+id/week_days_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/week_days_recycler_view"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:overScrollMode="never"
+                android:scrollbars="none"
+
+                tools:itemCount="7"
+                tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/week_day_item_view"
+                tools:orientation="vertical"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  tools:orientation="vertical">
+
+    </LinearLayout>
 
 </LinearLayout>

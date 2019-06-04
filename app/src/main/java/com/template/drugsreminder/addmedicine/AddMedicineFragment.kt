@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.LinearLayout
 import com.template.drugsreminder.R
 import com.template.drugsreminder.base.BaseFragment
 
@@ -15,11 +15,14 @@ class AddMedicineFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<TextView>(R.id.duration_value)
+        view.findViewById<LinearLayout>(R.id.duration_layout)
             .setOnClickListener(this::onDurationClick)
 
-        view.findViewById<TextView>(R.id.frequency_value)
+        view.findViewById<LinearLayout>(R.id.frequency_layout)
             .setOnClickListener(this::onFrequencyClick)
+
+        view.findViewById<LinearLayout>(R.id.taking_time_layout)
+            .setOnClickListener(this::onTakingTimeClick)
     }
 
     private fun onDurationClick(v: View) {
@@ -28,5 +31,9 @@ class AddMedicineFragment : BaseFragment() {
 
     private fun onFrequencyClick(v: View) {
         getNavController().navigate(R.id.action_addMedicine_to_frequency)
+    }
+
+    private fun onTakingTimeClick(v: View) {
+        getNavController().navigate(R.id.action_addMedicine_to_takingTime)
     }
 }

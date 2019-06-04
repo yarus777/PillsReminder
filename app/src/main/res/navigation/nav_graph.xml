@@ -26,6 +26,8 @@
                 app:destination="@id/durationFragment"/>
         <action android:id="@+id/action_addMedicine_to_frequency"
                 app:destination="@id/frequencyFragment"/>
+        <action android:id="@+id/action_addMedicine_to_takingTime"
+                app:destination="@id/takingTimeFragment"/>
     </fragment>
 
     <fragment android:id="@+id/durationFragment"
@@ -35,6 +37,10 @@
     <fragment android:id="@+id/frequencyFragment"
               android:name="com.template.drugsreminder.frequency.FrequencyFragment"
               android:label="FrequencyFragment"
-    tools:layout="@layout/fragment_frequency"/>
+              tools:layout="@layout/fragment_frequency"/>
+    <fragment android:id="@+id/takingTimeFragment"
+              android:name="com.template.drugsreminder.takingtime.TakingTimeFragment"
+              android:label="TakingTimeFragment"
+              tools:layout="@layout/fragment_taking_time"/>
 
 </navigation>

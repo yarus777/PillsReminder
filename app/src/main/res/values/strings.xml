@@ -23,6 +23,9 @@
     <string name="frequency">Частота</string>
     <string name="time">Время</string>
     <string name="till">До</string>
+    <string name="active_days">Активных дня(дней)</string>
+    <string name="break_days">Дни перерыва</string>
+    <string name="cycle_day">День цикла</string>
 
     <string name="save">Сохранить</string>
 
@@ -35,5 +38,23 @@
     <string name="drop">Капля</string>
     <string name="inhalation">Ингаляция</string>
     <string name="suppository">Суппозитория</string>
+
+    <string name="monday">Понедельник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Среда</string>
+    <string name="thursday">Четврег</string>
+    <string name="friday">Пятница</string>
+    <string name="saturday">Суббота</string>
+    <string name="sunday">Воскресенье</string>
+
+    <array name="week_days">
+        <item>@string/monday</item>
+        <item>@string/tuesday</item>
+        <item>@string/wednesday</item>
+        <item>@string/thursday</item>
+        <item>@string/friday</item>
+        <item>@string/saturday</item>
+        <item>@string/sunday</item>
+    </array>
 
 </resources>
