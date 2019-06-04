@@ -48,7 +48,7 @@
             android:visibility="gone">
 
         <android.support.v7.widget.RecyclerView
-                android:id="@+id/week_days_recycler_view"
+                android:id="@+id/frequencyWeekDaysList"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
