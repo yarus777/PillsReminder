@@ -47,7 +47,7 @@
             fab:menu_backgroundColor="@color/shadow">
 
         <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/menu_add_medicine"
+                android:id="@+id/mainMenuAddMedicine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_prescription"

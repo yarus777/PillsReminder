@@ -1,30 +1,30 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android" android:autoMirrored="true"
         android:height="40dp" android:viewportHeight="511"
         android:viewportWidth="511.99988" android:width="40dp">
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m502,382.637c-5.523,0 -10.004,4.48 -10.004,10.004 0,5.52 4.48,10 10.004,10 5.52,0 10,-4.48 10,-10 0,-5.523 -4.48,-10.004 -10,-10.004zM502,382.637"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m502,422.641c-5.523,0 -10.004,4.48 -10.004,10.004 0,5.52 4.48,10 10.004,10 5.52,0 10,-4.48 10,-10 0,-5.523 -4.48,-10.004 -10,-10.004zM502,422.641"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m502,462.645c-5.523,0 -10.004,4.48 -10.004,10.004 0,5.52 4.48,10 10.004,10 5.52,0 10,-4.48 10,-10 0,-5.523 -4.48,-10.004 -10,-10.004zM502,462.645"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m461.996,402.641c5.52,0 10,-4.48 10,-10 0,-5.523 -4.48,-10.004 -10,-10.004 -5.523,0 -10.004,4.48 -10.004,10.004 0,5.52 4.48,10 10.004,10zM461.996,402.641"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m461.996,442.645c5.52,0 10,-4.48 10,-10 0,-5.523 -4.48,-10.004 -10,-10.004 -5.523,0 -10.004,4.48 -10.004,10.004 0,5.52 4.48,10 10.004,10zM461.996,442.645"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m461.996,482.648c5.52,0 10,-4.48 10,-10 0,-5.523 -4.48,-10.004 -10,-10.004 -5.523,0 -10.004,4.48 -10.004,10.004 0,5.52 4.48,10 10.004,10zM461.996,482.648"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m421.992,402.641c5.52,0 10,-4.48 10,-10 0,-5.523 -4.48,-10.004 -10,-10.004 -5.523,0 -10.004,4.48 -10.004,10.004 0,5.52 4.48,10 10.004,10zM421.992,402.641"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m421.992,442.645c5.52,0 10,-4.48 10,-10 0,-5.523 -4.48,-10.004 -10,-10.004 -5.523,0 -10.004,4.48 -10.004,10.004 0,5.52 4.48,10 10.004,10zM421.992,442.645"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m421.992,482.648c5.52,0 10,-4.48 10,-10 0,-5.523 -4.48,-10.004 -10,-10.004 -5.523,0 -10.004,4.48 -10.004,10.004 0,5.52 4.48,10 10.004,10zM421.992,482.648"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m135.961,442.645c0,11.027 8.973,20 20,20 11.031,0 20.004,-8.973 20.004,-20 0,-11.031 -8.973,-20.004 -20.004,-20.004 -11.027,0 -20,8.973 -20,20.004zM135.961,442.645"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m235.973,442.645c0,-11.031 -8.977,-20.004 -20.004,-20.004s-20.004,8.973 -20.004,20.004c0,11.027 8.977,20 20.004,20s20.004,-8.973 20.004,-20zM235.973,442.645"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m215.969,492.648c0,5.523 -4.477,10 -10,10s-10.004,-4.477 -10.004,-10c0,-5.523 4.48,-10 10.004,-10s10,4.477 10,10zM215.969,492.648"/>
-    <path android:fillColor="@android:color/white"
+    <path android:fillColor="@drawable/icons_color_tint"
           android:pathData="m0.852,133.98c1.742,7.301 82.789,345.547 82.82,345.68 3.246,13.539 15.246,22.992 29.176,22.992h48.113c5.523,0 10.004,-4.48 10.004,-10.004 0,-5.523 -4.48,-10 -10.004,-10h-48.113c-4.645,0 -8.645,-3.148 -9.727,-7.648l-70.23,-293.145 154.227,-41.324 54.543,234.371c1.055,4.531 5.09,7.734 9.742,7.734h44.523c5.648,0 10.016,4.543 10.051,9.902v80.051c-0.031,5.672 -4.598,10.059 -10.051,10.059h-44.953c-5.523,0 -10.004,4.477 -10.004,10 0,5.523 4.48,10 10.004,10h44.953c10.914,0 20.719,-5.898 25.992,-15h40.074c16.539,-0.016 29.992,-13.477 29.992,-30.012v-50.086c0,-16.668 -13.496,-29.914 -29.754,-29.914 -0.082,0 -40.281,0 -40.281,0 -5.25,-9.109 -15.047,-15 -26.023,-15h-36.582l-64.859,-278.68c-3.766,-16.168 -20.043,-26.316 -36.355,-22.332l-7.773,-28.918c-4.297,-15.949 -20.77,-25.449 -36.723,-21.188l-77.391,20.691c-16.398,4.391 -25.461,20.934 -21.223,36.641l7.773,29.023 -0.527,0.141c-15.836,4.234 -25.238,20.035 -21.414,35.965zM362.066,397.641c5.797,0.023 9.918,4.652 9.918,9.91v50.086c0,5.516 -4.488,10.008 -10,10.012h-36.004v-70.02zM175.004,88.492 L182.582,121.043 28.23,162.398 20.301,129.316c-1.273,-5.305 1.859,-10.566 7.137,-11.977 14.148,-3.793 117.543,-31.5 135.242,-36.242 5.438,-1.461 11.039,1.883 12.324,7.395zM41.414,51.535 L118.801,30.84c5.305,-1.418 10.809,1.746 12.242,7.066l7.762,28.879 -96.691,25.914 -7.777,-29.039c-1.363,-5.059 1.395,-10.605 7.078,-12.125zM41.414,51.535"/>
 </vector>

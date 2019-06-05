@@ -7,6 +7,7 @@
     <string name="add_measurement">Добавить измерение</string>
 
     <string name="medicine_name">Название лекарства</string>
+    <string name="medicine_picture">Изображение лекарства</string>
     <string name="dosage">Дозировка</string>
     <string name="start_date">Дата начала</string>
     <string name="till_date">До даты</string>
@@ -26,6 +27,8 @@
     <string name="active_days">Активных дня(дней)</string>
     <string name="break_days">Дни перерыва</string>
     <string name="cycle_day">День цикла</string>
+    <string name="every_day">Каждый(-ые)</string>
+    <string name="enter_medicine_name">Введите название лекарства</string>
 
     <string name="save">Сохранить</string>
 
@@ -38,6 +41,11 @@
     <string name="drop">Капля</string>
     <string name="inhalation">Ингаляция</string>
     <string name="suppository">Суппозитория</string>
+    <string name="patch">Пластырь</string>
+    <string name="spray">Спрей</string>
+    <string name="gel_ointment">Гель/мазь</string>
+    <string name="herbs">Травы</string>
+    <string name="medical_solution">Медицинский раствор</string>
 
     <string name="monday">Понедельник</string>
     <string name="tuesday">Вторник</string>
@@ -55,6 +63,40 @@
         <item>@string/friday</item>
         <item>@string/saturday</item>
         <item>@string/sunday</item>
+    </array>
+
+    <array name="medicine_types">
+        <item>@string/gel_ointment</item>
+        <item>@string/pill</item>
+        <item>@string/capsule</item>
+        <item>@string/spoon</item>
+        <item>@string/ampule</item>
+        <item>@string/powder</item>
+        <item>@string/injection</item>
+        <item>@string/drop</item>
+        <item>@string/inhalation</item>
+        <item>@string/suppository</item>
+        <item>@string/patch</item>
+        <item>@string/spray</item>
+        <item>@string/herbs</item>
+        <item>@string/medical_solution</item>
+    </array>
+
+    <array name="medicine_pictures">
+        <item>@drawable/ic_cream</item>
+        <item>@drawable/ic_pills</item>
+        <item>@drawable/ic_capsules</item>
+        <item>@drawable/ic_spoon</item>
+        <item>@drawable/ic_calcium</item>
+        <item>@drawable/ic_powder</item>
+        <item>@drawable/ic_syringe</item>
+        <item>@drawable/ic_water</item>
+        <item>@drawable/ic_inhaler</item>
+        <item>@drawable/ic_suppositories</item>
+        <item>@drawable/ic_band_aid</item>
+        <item>@drawable/ic_sprays</item>
+        <item>@drawable/ic_herbs</item>
+        <item>@drawable/ic_medical_solution</item>
     </array>
 
 </resources>

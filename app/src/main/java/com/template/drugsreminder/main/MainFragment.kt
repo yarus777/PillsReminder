@@ -8,6 +8,7 @@ import com.template.drugsreminder.R
 import com.template.drugsreminder.base.BaseFragment
 import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
+import kotlinx.android.synthetic.main.fragment_main.*
 import java.util.*
 
 
@@ -19,8 +20,10 @@ class MainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<com.github.clans.fab.FloatingActionButton>(R.id.menu_add_medicine)
-            .setOnClickListener(this::onAddMedicineButtonClick)
+
+        getConfig().setBottomBarVisible(true).apply()
+
+        mainMenuAddMedicine.setOnClickListener(this::onAddMedicineButtonClick)
 
         var startDate: Calendar = Calendar.getInstance()
         startDate.add(Calendar.MONTH, -1)
@@ -35,6 +38,7 @@ class MainFragment : BaseFragment() {
                 .showTopText(false)
             .end()
             .build()
+
         calendar.calendarListener = object : HorizontalCalendarListener() {
             override fun onDateSelected(date: Calendar?, position: Int) {
             }

@@ -1,113 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent" android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/light_gray"
         android:padding="14dp"
         android:orientation="vertical">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/start_date"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="03.06.2019"
-            android:textSize="14dp"
-            android:textColor="@color/gray"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"/>
-
-    <include layout="@layout/separator_view"/>
-
-    <RadioGroup
-            android:id="@+id/duration_radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
-
-        <RadioButton
-                android:id="@+id/no_end_date_radio_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/no_end_date"/>
-
-        <RadioButton
-                android:id="@+id/till_date_radio_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/till_date"/>
-
-        <RadioButton
-                android:id="@+id/within_x_days_radio_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/within_x_days"/>
-    </RadioGroup>
-
-    <include layout="@layout/separator_view"/>
-
-    <LinearLayout
-            android:id="@+id/till_date_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:visibility="gone"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  app:layout_constraintTop_toTopOf="parent">
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/till"
-                android:textColor="@color/black"
-                android:textSize="18dp"/>
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="14.06.2019"
-                android:textSize="14dp"
-                android:textColor="@color/gray"
-                android:layout_marginBottom="10dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/duration_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:visibility="gone">
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/duration"
+                android:text="@string/start_date"
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"/>
 
-        <EditText
+        <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="10"
+                android:text="03.06.2019"
                 android:textSize="14dp"
                 android:textColor="@color/gray"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"/>
+
+        <include layout="@layout/separator_view"/>
+
+        <RadioGroup
+                android:id="@+id/durationRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+            <RadioButton
+                    android:id="@+id/no_end_date_radio_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="@string/no_end_date"/>
+
+            <RadioButton
+                    android:id="@+id/till_date_radio_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="@string/till_date"/>
+
+            <RadioButton
+                    android:id="@+id/within_x_days_radio_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="@string/within_x_days"/>
+        </RadioGroup>
+
+        <include layout="@layout/separator_view"/>
+
+        <LinearLayout
+                android:id="@+id/durationTillDateLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/till"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="14.06.2019"
+                    android:textSize="14dp"
+                    android:textColor="@color/gray"
+                    android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/durationLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:visibility="gone">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/duration"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="10"
+                    android:textSize="14dp"
+                    android:textColor="@color/gray"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"
+                    android:hint="10"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <Button
+            android:id="@+id/durationSaveBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow_green"
+            android:text="@string/save"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</android.support.constraint.ConstraintLayout>

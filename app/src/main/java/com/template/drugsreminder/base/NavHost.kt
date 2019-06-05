@@ -4,4 +4,5 @@ import androidx.navigation.NavController
 
 interface NavHost {
    fun getNavController(): NavController
+   fun setBottomBarVisibility(isVisible : Boolean)
 }

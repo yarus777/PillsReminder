@@ -10,6 +10,9 @@ import com.template.drugsreminder.R
 import com.template.drugsreminder.base.BaseFragment
 import android.app.DatePickerDialog
 import android.widget.RadioButton
+import kotlinx.android.synthetic.main.fragment_add_medicine.*
+import kotlinx.android.synthetic.main.fragment_duration.*
+import kotlinx.android.synthetic.main.fragment_frequency.*
 import java.util.*
 
 
@@ -22,30 +25,39 @@ class DurationFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tillDateLayout = view.findViewById<LinearLayout>(R.id.till_date_layout)
-        val durationLayout = view.findViewById<LinearLayout>(R.id.duration_layout)
+        getConfig().setBottomBarVisible(false).apply()
 
-        view.findViewById<RadioGroup>(R.id.duration_radio_group)
-            .setOnCheckedChangeListener { group, checkedId ->
+        durationRadioGroup.setOnCheckedChangeListener { group, checkedId ->
 
-                when (checkedId) {
-                    R.id.till_date_radio_btn -> {
-                        tillDateLayout.visibility = View.VISIBLE
-                        durationLayout.visibility = View.GONE
-                    }
-                    R.id.within_x_days_radio_btn -> {
-                        durationLayout.visibility = View.VISIBLE
-                        tillDateLayout.visibility = View.GONE
-                    }
-                    else -> {
-                        durationLayout.visibility = View.GONE
-                        tillDateLayout.visibility = View.GONE
-                    }
+            when (checkedId) {
+                R.id.till_date_radio_btn -> {
+                    setLayoutsVisibility(false, true)
+                }
+                R.id.within_x_days_radio_btn -> {
+                    setLayoutsVisibility(true, false)
+                }
+                else -> {
+                    setLayoutsVisibility(false, false)
                 }
             }
+        }
 
-        tillDateLayout.setOnClickListener(this::onTillDateLayoutClick)
+        durationTillDateLayout.setOnClickListener(this::onTillDateLayoutClick)
 
+        durationSaveBtn.setOnClickListener(this::onSaveBtnClick)
+
+    }
+
+    private fun onSaveBtnClick(v: View) {
+        getNavController().navigateUp()
+    }
+
+    private fun setLayoutsVisibility(
+        durationVisibility: Boolean,
+        durationTillDateVisibility: Boolean
+    ) {
+        durationLayout.visibility = if (durationVisibility) View.VISIBLE else View.GONE
+        durationTillDateLayout.visibility = if (durationTillDateVisibility) View.VISIBLE else View.GONE
     }
 
     private fun onTillDateLayoutClick(v: View) {

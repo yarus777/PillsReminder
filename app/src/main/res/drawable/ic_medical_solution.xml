@@ -1,0 +1,7 @@
+<vector android:autoMirrored="true" android:height="40dp"
+    android:viewportHeight="512" android:viewportWidth="512"
+    android:width="40dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="@drawable/icons_color_tint" android:pathData="M509.425,9.499c-1.936,-2.177 -4.71,-3.423 -7.624,-3.423H10.199c-2.913,0 -5.688,1.246 -7.623,3.423c-1.936,2.178 -2.848,5.078 -2.506,7.972l56.617,479.45c0.607,5.134 4.959,9.003 10.129,9.003h378.367c5.17,0 9.523,-3.869 10.129,-9.003l56.618,-479.45C512.271,14.577 511.36,11.676 509.425,9.499zM436.118,485.525H75.882L50.243,268.408h411.514L436.118,485.525zM464.166,248.009H47.834L21.674,26.474h468.653L464.166,248.009z"/>
+    <path android:fillColor="@drawable/icons_color_tint" android:pathData="M205.183,42.531H52.731c-5.633,0 -10.199,4.567 -10.199,10.199S47.098,62.93 52.731,62.93h152.452c5.633,0 10.199,-4.567 10.199,-10.199S210.816,42.531 205.183,42.531z"/>
+    <path android:fillColor="@drawable/icons_color_tint" android:pathData="M249.373,42.531h-5.524c-5.633,0 -10.199,4.567 -10.199,10.199s4.566,10.199 10.199,10.199h5.524c5.633,0 10.199,-4.567 10.199,-10.199S255.006,42.531 249.373,42.531z"/>
+</vector>
