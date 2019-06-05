@@ -13,8 +13,9 @@ import com.template.drugsreminder.utils.SimpleViewHolder
 import kotlinx.android.synthetic.main.fragment_add_medicine.*
 import kotlinx.android.synthetic.main.medicine_picture_item_view.*
 
-
 class AddMedicineFragment : BaseFragment() {
+    private lateinit var adapter: SimpleRecyclerAdapter<MedicinePicture>
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_add_medicine, container, false)
     }
@@ -22,60 +23,52 @@ class AddMedicineFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getConfig().setBottomBarVisible(false).apply()
-
-        addMedicineDurationLayout.setOnClickListener(this::onDurationClick)
-        addMedicineFrequencyLayout.setOnClickListener(this::onFrequencyClick)
-        addMedicineTakingTimeLayout.setOnClickListener(this::onTakingTimeClick)
-
-        addMedicinePictureList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        addMedicinePictureList.adapter = SimpleRecyclerAdapter(prepareAdapterData(), ::MedicinePictureViewHolder)
-
-        addMedicineSaveBtn.setOnClickListener(this::onSaveBtnClick)
-    }
-
-    private fun onSaveBtnClick(v: View) {
-        getNavController().navigateUp()
-    }
-
-
-    private fun onDurationClick(v: View) {
-        getNavController().navigate(R.id.action_addMedicine_to_duration)
-    }
-
-    private fun onFrequencyClick(v: View) {
-        getNavController().navigate(R.id.action_addMedicine_to_frequency)
-    }
-
-    private fun onTakingTimeClick(v: View) {
-        getNavController().navigate(R.id.action_addMedicine_to_takingTime)
-    }
-
-    class MedicinePictureViewHolder(parent: ViewGroup) :
-        SimpleViewHolder<MedicinePicture>(R.layout.medicine_picture_item_view, parent) {
-        override fun bind(data: MedicinePicture) {
-            addMedicinePicture.setImageResource(data.imageResource)
-            addMedicinePicture.setOnClickListener(this::onPictureClick)
+        config.apply {
+            isBottomBarVisible = false
+            apply()
         }
 
-        private fun onPictureClick(v: View) {
+        addMedicineDurationLayout.setOnClickListener { getNavController().navigate(R.id.action_addMedicine_to_duration) }
+        addMedicineFrequencyLayout.setOnClickListener { getNavController().navigate(R.id.action_addMedicine_to_frequency) }
+        addMedicineTakingTimeLayout.setOnClickListener { getNavController().navigate(R.id.action_addMedicine_to_takingTime) }
+
+        addMedicinePictureList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        adapter = SimpleRecyclerAdapter(prepareAdapterData(), ::MedicinePictureViewHolder)
+        addMedicinePictureList.adapter = adapter
+
+        addMedicineSaveBtn.setOnClickListener { getNavController().navigateUp() }
+    }
+
+    private fun prepareAdapterData(): List<MedicinePicture> {
+        val pictures = resources.obtainTypedArray(R.array.medicine_pictures)
+        val data = (0..pictures.length()).map { i -> MedicinePicture(pictures.getResourceId(i, 0), false) }
+        pictures.recycle()
+        return data
+    }
+
+    private fun onPictureClick(item: MedicinePicture) {
+        adapter.data.forEach { it.isSelected = item == it }
+        adapter.notifyDataSetChanged()
+    }
+
+    private inner class MedicinePictureViewHolder(parent: ViewGroup) :
+        SimpleViewHolder<MedicinePicture>(R.layout.medicine_picture_item_view, parent) {
+
+        private var data: MedicinePicture? = null
+
+        init {
+            addMedicinePicture.setOnClickListener { data?.let { onPictureClick(it) } }
+        }
+
+        override fun bind(data: MedicinePicture) {
+            this.data = data
+            addMedicinePicture.setImageResource(data.imageResource)
             addMedicinePicture.setColorFilter(
-                ContextCompat.getColor(v.context, R.color.yellow_green),
+                ContextCompat.getColor(context!!, if (data.isSelected) R.color.yellow_green else R.color.gray),
                 android.graphics.PorterDuff.Mode.SRC_IN
             )
         }
     }
 
-    private fun prepareAdapterData(): ArrayList<MedicinePicture> {
-        val data = ArrayList<MedicinePicture>()
-        val pictures = resources.obtainTypedArray(R.array.medicine_pictures)
-        for (i in 0 until pictures.length()) {
-            data.add(MedicinePicture(pictures.getResourceId(i, 0), false))
-        }
-        pictures.recycle()
-        return data
-    }
-
-    class MedicinePicture(val imageResource: Int, isSelected: Boolean) {
-    }
+    private data class MedicinePicture(val imageResource: Int, var isSelected: Boolean)
 }

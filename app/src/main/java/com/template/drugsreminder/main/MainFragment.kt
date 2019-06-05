@@ -21,17 +21,12 @@ class MainFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getConfig().setBottomBarVisible(true).apply()
-
         mainMenuAddMedicine.setOnClickListener(this::onAddMedicineButtonClick)
 
-        var startDate: Calendar = Calendar.getInstance()
-        startDate.add(Calendar.MONTH, -1)
+        val startDate = Calendar.getInstance().apply { add(Calendar.MONTH, -1) }
+        val endDate = Calendar.getInstance().apply { add(Calendar.MONTH, 1) }
 
-        var endDate: Calendar = Calendar.getInstance()
-        endDate.add(Calendar.MONTH, 1)
-
-        var calendar: HorizontalCalendar = HorizontalCalendar.Builder(view, R.id.calendar)
+        val calendar: HorizontalCalendar = HorizontalCalendar.Builder(view, R.id.calendar)
             .range(startDate, endDate)
             .datesNumberOnScreen(7)
             .configure()
@@ -43,8 +38,6 @@ class MainFragment : BaseFragment() {
             override fun onDateSelected(date: Calendar?, position: Int) {
             }
         }
-
-
     }
 
     private fun onAddMedicineButtonClick(v: View) {

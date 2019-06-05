@@ -3,20 +3,17 @@ package com.template.drugsreminder.base
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.annotation.ColorRes
 import android.support.annotation.IdRes
-import android.support.annotation.MenuRes
-import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.util.Log
+import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 
 abstract class BaseFragment : Fragment() {
 
-    private val config = Config()
+    protected val config = Config()
 
     protected fun <Model : ViewModel> getViewModel(modelClass: Class<Model>): Model? {
         val model =
@@ -102,24 +99,18 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    protected fun getConfig(): Config {
-        return config
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        config.apply()
     }
 
     inner class Config {
 
-        private var isBottomBarVisible = true
+        var isBottomBarVisible = true
 
         fun apply() {
             getNavHost().setBottomBarVisibility(isBottomBarVisible)
         }
-
-
-        fun setBottomBarVisible(bottomBarVisible: Boolean): Config {
-            isBottomBarVisible = bottomBarVisible
-            return this
-        }
-
     }
 }
 
