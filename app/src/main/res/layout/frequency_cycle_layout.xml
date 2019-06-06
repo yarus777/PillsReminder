@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:orientation="vertical">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/active_days"
+            android:textColor="@color/black"
+            android:textSize="18dp"/>
+
+    <EditText
+            android:id="@+id/frequencyCycleActiveDaysEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="21"
+            android:textSize="14dp"
+            android:textColor="@color/gray"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="5dp"
+            android:inputType="number"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/break_days"
+            android:textColor="@color/black"
+            android:textSize="18dp"/>
+
+    <EditText
+            android:id="@+id/frequencyCycleBreakDaysEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="7"
+            android:textSize="14dp"
+            android:textColor="@color/gray"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="5dp"
+            android:inputType="number"/>
+
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cycle_day"
+            android:textColor="@color/black"
+            android:textSize="18dp"/>
+
+    <EditText
+            android:id="@+id/frequencyCycleDayEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="1"
+            android:textSize="14dp"
+            android:textColor="@color/gray"
+            android:background="@android:color/transparent"
+            android:inputType="number"/>
+
+</LinearLayout>

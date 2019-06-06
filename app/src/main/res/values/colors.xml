@@ -8,7 +8,7 @@
     <color name="gray">#757575</color>
     <color name="light_gray">#F1F1F1</color>
     <color name="shadow">#77070707</color>
-    <color name="lavender">#e8e8e8</color>
+    <color name="light_gray2">#c2cdd2</color>
 
     <color name="black">@android:color/black</color>
 

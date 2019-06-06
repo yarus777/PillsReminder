@@ -4,19 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.RadioGroup
 import com.template.drugsreminder.R
 import com.template.drugsreminder.base.BaseFragment
 import android.app.DatePickerDialog
+import android.support.annotation.StringRes
+import android.support.v7.widget.LinearLayoutManager
 import android.widget.RadioButton
-import kotlinx.android.synthetic.main.fragment_add_medicine.*
+import com.template.drugsreminder.models.Duration
+import com.template.drugsreminder.utils.SimpleRecyclerAdapter
+import com.template.drugsreminder.utils.SimpleViewHolder
+import com.template.drugsreminder.utils.observe
+import kotlinx.android.synthetic.main.duration_till_date_layout.view.*
 import kotlinx.android.synthetic.main.fragment_duration.*
 import kotlinx.android.synthetic.main.fragment_frequency.*
 import java.util.*
 
 
 class DurationFragment : BaseFragment() {
+
+    private lateinit var model: DurationViewModel
+
+    private lateinit var adapter: SimpleRecyclerAdapter<DurationOption>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_duration, container, false)
@@ -25,39 +33,74 @@ class DurationFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getConfig().setBottomBarVisible(false).apply()
+        config.apply {
+            isBottomBarVisible = false
+            apply()
+        }
 
-        durationRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+        model = getViewModel(DurationViewModel::class)!!
 
-            when (checkedId) {
-                R.id.till_date_radio_btn -> {
-                    setLayoutsVisibility(false, true)
-                }
-                R.id.within_x_days_radio_btn -> {
-                    setLayoutsVisibility(true, false)
-                }
-                else -> {
-                    setLayoutsVisibility(false, false)
-                }
+        val data = listOf(
+            DurationOption(
+                Duration.WithoutDate,
+                R.string.no_end_date
+            ) { null },
+            DurationOption(Duration.TillDate, R.string.till_date) { initTillDate(it) },
+            DurationOption(Duration.DurationCount, R.string.duration) { initDurationCount(it) })
+
+        durationOptionsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        adapter = SimpleRecyclerAdapter(data, ::DurationOptionsHolder)
+        durationOptionsList.adapter = adapter
+
+        durationSaveBtn.setOnClickListener {
+            model.saveDuration()
+            getNavController().navigateUp()
+        }
+
+        model.duration.observe(this) { dur ->
+            adapter.data.forEach { it.isSelected = it.option == dur }
+            adapter.notifyDataSetChanged()
+            durationDetailsContainer.removeAllViews()
+            data.find { it.option == dur }?.handler?.invoke(durationDetailsContainer)
+        }
+
+    }
+
+
+    private fun initTillDate(parent: ViewGroup): View {
+        val v = LayoutInflater.from(context).inflate(R.layout.duration_till_date_layout, parent, true)
+        v.durationTillDateLayout.setOnClickListener(this::onTillDateLayoutClick)
+        return v
+    }
+
+
+    private fun initDurationCount(parent: ViewGroup) =
+        LayoutInflater.from(context).inflate(R.layout.duration_count_layout, parent, true)
+
+    private data class DurationOption(
+        val option: Duration,
+        @StringRes val titleRes: Int,
+        var isSelected: Boolean = false,
+        val handler: (ViewGroup) -> View?
+    )
+
+
+    private inner class DurationOptionsHolder(parent: ViewGroup) :
+        SimpleViewHolder<DurationOption>(R.layout.radio_button_option_item_view, parent) {
+        private var data: DurationOption? = null
+
+        init {
+            itemView.setOnClickListener { data?.option?.let { model.duration.value = it } }
+        }
+
+        override fun bind(data: DurationOption) {
+            this.data = data
+            (itemView as RadioButton).apply {
+                isChecked = data.isSelected
+                text = getString(data.titleRes)
             }
         }
 
-        durationTillDateLayout.setOnClickListener(this::onTillDateLayoutClick)
-
-        durationSaveBtn.setOnClickListener(this::onSaveBtnClick)
-
-    }
-
-    private fun onSaveBtnClick(v: View) {
-        getNavController().navigateUp()
-    }
-
-    private fun setLayoutsVisibility(
-        durationVisibility: Boolean,
-        durationTillDateVisibility: Boolean
-    ) {
-        durationLayout.visibility = if (durationVisibility) View.VISIBLE else View.GONE
-        durationTillDateLayout.visibility = if (durationTillDateVisibility) View.VISIBLE else View.GONE
     }
 
     private fun onTillDateLayoutClick(v: View) {

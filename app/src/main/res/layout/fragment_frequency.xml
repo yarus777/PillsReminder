@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="14dp"
         android:orientation="vertical"
@@ -13,156 +14,23 @@
                   android:orientation="vertical"
                   app:layout_constraintTop_toTopOf="parent">
 
-        <RadioGroup
-                android:id="@+id/frequencyRadioGroup"
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/frequencyOptionsList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
-
-            <RadioButton
-                    android:id="@+id/frequencyDailyRadioBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:text="@string/daily"/>
-
-            <RadioButton
-                    android:id="@+id/frequencyEveryXDaysRadioBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:text="@string/every_x_days"/>
-
-            <RadioButton
-                    android:id="@+id/frequencyCertainWeekDaysRadioBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:text="@string/certain_week_days"/>
-
-            <RadioButton
-                    android:id="@+id/frequencyCycleRadioBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:text="@string/cycle"/>
-        </RadioGroup>
+                android:layout_marginBottom="10dp"
+                tools:listitem="@layout/radio_button_option_item_view"
+                tools:itemCount="5"
+                tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:orientation="vertical"/>
 
         <include layout="@layout/separator_view"/>
 
-        <LinearLayout
-                android:id="@+id/frequencyWeekDaysLayout"
+        <FrameLayout
+                android:id="@+id/frequencyDetailsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginTop="10dp">
-
-            <android.support.v7.widget.RecyclerView
-                    android:id="@+id/frequencyWeekDaysList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:overScrollMode="never"
-                    android:scrollbars="none"
-                    tools:itemCount="7"
-                    tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                    tools:listitem="@layout/week_day_item_view"
-                    tools:orientation="vertical"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-                android:id="@+id/frequencyCycleDaysLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/active_days"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"/>
-
-            <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="21"
-                    android:textSize="14dp"
-                    android:textColor="@color/gray"
-                    android:background="@android:color/transparent"
-                    android:layout_marginBottom="5dp"
-                    android:hint="21"/>
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/break_days"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"/>
-
-            <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="7"
-                    android:textSize="14dp"
-                    android:textColor="@color/gray"
-                    android:background="@android:color/transparent"
-                    android:layout_marginBottom="5dp"
-                    android:hint="7"/>
-
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cycle_day"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"/>
-
-            <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="1"
-                    android:textSize="14dp"
-                    android:textColor="@color/gray"
-                    android:background="@android:color/transparent"
-                    android:hint="1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:id="@+id/frequencyEveryDayLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:visibility="gone">
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/every_day"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"/>
-
-            <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="Каждые 3 дня(дней)"
-                    android:textSize="14dp"
-                    android:textColor="@color/gray"
-                    android:background="@android:color/transparent"
-                    android:hint="Каждые 3 дня(дней)"/>
-
-        </LinearLayout>
+                android:layout_marginTop="10dp"/>
 
     </LinearLayout>
 

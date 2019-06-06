@@ -8,13 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.template.drugsreminder.R
 import com.template.drugsreminder.base.BaseFragment
+import com.template.drugsreminder.duration.DurationViewModel
+import com.template.drugsreminder.frequency.FrequencyViewModel
 import com.template.drugsreminder.utils.SimpleRecyclerAdapter
 import com.template.drugsreminder.utils.SimpleViewHolder
+import com.template.drugsreminder.utils.observe
 import kotlinx.android.synthetic.main.fragment_add_medicine.*
 import kotlinx.android.synthetic.main.medicine_picture_item_view.*
 
 class AddMedicineFragment : BaseFragment() {
     private lateinit var adapter: SimpleRecyclerAdapter<MedicinePicture>
+
+    private lateinit var model: AddMedicineViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_add_medicine, container, false)
@@ -28,15 +33,29 @@ class AddMedicineFragment : BaseFragment() {
             apply()
         }
 
-        addMedicineDurationLayout.setOnClickListener { getNavController().navigate(R.id.action_addMedicine_to_duration) }
-        addMedicineFrequencyLayout.setOnClickListener { getNavController().navigate(R.id.action_addMedicine_to_frequency) }
-        addMedicineTakingTimeLayout.setOnClickListener { getNavController().navigate(R.id.action_addMedicine_to_takingTime) }
+        model = getViewModel(AddMedicineViewModel::class)!!
+
+        addMedicineDurationLayout.setOnClickListener {
+            getNavController().navigate(
+                R.id.action_addMedicine_to_duration,
+                DurationViewModel(model.duration)
+            )
+        }
+        addMedicineFrequencyLayout.setOnClickListener {
+            getNavController().navigate(
+                R.id.action_addMedicine_to_frequency,
+                FrequencyViewModel(model.frequency)
+            )
+        }
 
         addMedicinePictureList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         adapter = SimpleRecyclerAdapter(prepareAdapterData(), ::MedicinePictureViewHolder)
         addMedicinePictureList.adapter = adapter
 
         addMedicineSaveBtn.setOnClickListener { getNavController().navigateUp() }
+
+        model.frequency.observe(this) { addMedicineFrequencyValue.text = ""}
+        model.duration.observe(this) { addMedicineDurationValue.text = "" }
     }
 
     private fun prepareAdapterData(): List<MedicinePicture> {

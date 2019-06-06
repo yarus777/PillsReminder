@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/durationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="4dp" android:layout_marginEnd="4dp">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/duration"
+            android:textColor="@color/black"
+            android:textSize="18dp"/>
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="10"
+            android:textSize="14dp"
+            android:textColor="@color/gray"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
+            android:hint="10"
+            android:inputType="number"/>
+
+</LinearLayout>

@@ -10,24 +10,25 @@ import android.util.Log
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import kotlin.reflect.KClass
 
 abstract class BaseFragment : Fragment() {
 
     protected val config = Config()
 
-    protected fun <Model : ViewModel> getViewModel(modelClass: Class<Model>): Model? {
+    protected fun <Model : ViewModel> getViewModel(modelClass: KClass<Model>): Model? {
         val model =
             ViewModelProviders.of(activity!!).get<ModelProviderViewModel>(ModelProviderViewModel::class.java)
                 .takeModel()
-        return if (model != null && modelClass.isAssignableFrom(model!!.javaClass)) {
-            ViewModelProviders.of(this, ViewModelFactory(model)).get(modelClass)
+        return if (model != null && modelClass.java.isAssignableFrom(model!!.javaClass)) {
+            ViewModelProviders.of(this, ViewModelFactory(model)).get(modelClass.java)
         } else {
             try {
-                ViewModelProviders.of(this).get(modelClass)
+                ViewModelProviders.of(this).get(modelClass.java)
             } catch (e: Throwable) {
                 Log.e(
                     "NAVIGATION",
-                    modelClass.canonicalName!! + "should be provided via \"navController.navigate(resId, activity, model)\""
+                    modelClass.java.canonicalName!! + "should be provided via \"navController.navigate(resId, activity, model)\""
                 )
                 null
             }

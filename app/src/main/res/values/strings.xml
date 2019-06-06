@@ -29,6 +29,7 @@
     <string name="cycle_day">День цикла</string>
     <string name="every_day">Каждый(-ые)</string>
     <string name="enter_medicine_name">Введите название лекарства</string>
+    <string name="times_count">Раз</string>
 
     <string name="save">Сохранить</string>
 
