@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import com.template.drugsreminder.R
+import com.template.drugsreminder.addmedicine.AddMedicineFragment
 import com.template.drugsreminder.base.BaseFragment
 import com.template.drugsreminder.models.*
 import com.template.drugsreminder.utils.SimpleRecyclerAdapter
@@ -51,7 +52,7 @@ class FrequencyFragment : BaseFragment() {
             FrequencyOption(TimesADay(1), R.string.x_times_a_day) { parent, item -> initTimesADay(parent, item) },
             FrequencyOption(HoursADay(1), R.string.every_x_hours_a_day) { parent, item -> initHoursADay(parent, item) },
             FrequencyOption(DaysAWeek(1), R.string.every_x_days) { parent, item -> initDaysAWeek(parent, item) },
-            FrequencyOption(Weekly((1..5).toList()), R.string.certain_week_days) { parent, item ->
+            FrequencyOption(Weekly((0..4).toHashSet()), R.string.certain_week_days) { parent, item ->
                 initWeekly(
                     parent,
                     item
@@ -118,7 +119,8 @@ class FrequencyFragment : BaseFragment() {
     private fun initWeekly(parent: ViewGroup, frequency: Frequency): View {
         val v = LayoutInflater.from(context).inflate(R.layout.frequency_week_days_layout, parent, true)
         v.frequencyWeekDaysList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val data = resources.getStringArray(R.array.week_days).toList()
+        val daysNames: List<String> = resources.getStringArray(R.array.week_days).toList()
+        val data = (0..6).map { WeekDayOption(it, daysNames[it], (frequency as Weekly).weekDays.contains(it)) }
         v.frequencyWeekDaysList.adapter = SimpleRecyclerAdapter(data, ::WeekDayViewHolder)
         return v
     }
@@ -182,10 +184,38 @@ class FrequencyFragment : BaseFragment() {
     )
 
 
-    class WeekDayViewHolder(parent: ViewGroup) : SimpleViewHolder<String>(R.layout.week_day_item_view, parent) {
-        override fun bind(data: String) {
-            weekDayCheckbox.text = data
+    private inner class WeekDayViewHolder(parent: ViewGroup) :
+        SimpleViewHolder<WeekDayOption>(R.layout.week_day_item_view, parent) {
+
+        private var data: WeekDayOption? = null
+
+        override fun bind(data: WeekDayOption) {
+            this.data = data
+            with(weekDayCheckbox) {
+                text = data.dayName
+                isChecked = data.isSelected
+            }
+        }
+
+        init {
+            weekDayCheckbox.setOnClickListener { data?.let { onDaySelectionChanged(it) } }
         }
     }
+
+    private fun onDaySelectionChanged(day: WeekDayOption) {
+        (model.frequency.value as Weekly).weekDays.apply {
+            if (this.contains(day.dayPos)) this.remove(day.dayPos) else this.add(
+                day.dayPos
+            )
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+    private data class WeekDayOption(
+        val dayPos: Int,
+        val dayName: String,
+        var isSelected: Boolean = false
+
+    )
 
 }

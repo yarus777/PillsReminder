@@ -31,6 +31,11 @@
     <string name="enter_medicine_name">Введите название лекарства</string>
     <string name="times_count">Раз</string>
 
+    <string name="x_times_a_day_pattern">Ежедневно, %1$d раз в день</string>
+    <string name="every_x_hours_a_day_pattern">Ежедневно, каждые %1$d часов в день</string>
+    <string name="every_x_days_pattern">Каждые %1$d дня(дней)</string>
+    <string name="cycle_pattern">%1$d дня(дней) приема, %2$d дня(дней) паузы</string>
+
     <string name="save">Сохранить</string>
 
     <string name="spoon">Ложка</string>

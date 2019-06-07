@@ -10,6 +10,7 @@ import com.template.drugsreminder.R
 import com.template.drugsreminder.base.BaseFragment
 import com.template.drugsreminder.duration.DurationViewModel
 import com.template.drugsreminder.frequency.FrequencyViewModel
+import com.template.drugsreminder.models.*
 import com.template.drugsreminder.utils.SimpleRecyclerAdapter
 import com.template.drugsreminder.utils.SimpleViewHolder
 import com.template.drugsreminder.utils.observe
@@ -54,7 +55,19 @@ class AddMedicineFragment : BaseFragment() {
 
         addMedicineSaveBtn.setOnClickListener { getNavController().navigateUp() }
 
-        model.frequency.observe(this) { addMedicineFrequencyValue.text = ""}
+        model.frequency.observe(this) {
+            addMedicineFrequencyValue.text = when (it) {
+                is TimesADay -> resources.getString(R.string.x_times_a_day_pattern, it.timesCount)
+                is HoursADay -> resources.getString(R.string.every_x_hours_a_day_pattern, it.hoursCount)
+                is DaysAWeek -> resources.getString(R.string.every_x_days_pattern, it.daysCount)
+                is Weekly -> {
+                    val strings = resources.getStringArray(R.array.week_days).toList()
+                    it.weekDays.sortedBy { it }.joinToString(", ") { day -> strings[day] }
+                }
+                is Cycle -> resources.getString(R.string.cycle_pattern, it.activeDaysCount, it.breakDaysCount)
+                else -> ""
+            }
+        }
         model.duration.observe(this) { addMedicineDurationValue.text = "" }
     }
 

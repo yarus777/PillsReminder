@@ -16,7 +16,7 @@ data class DaysAWeek(var daysCount: Int) : Frequency() {
     override val category = FrequencyCategory.DaysAWeek
 }
 
-data class Weekly(var weekDays: List<Int>) : Frequency() {
+data class Weekly(var weekDays: HashSet<Int>) : Frequency() {
     override val category = FrequencyCategory.Weekly
 }
 
