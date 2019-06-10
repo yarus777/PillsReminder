@@ -5,23 +5,32 @@
               android:orientation="horizontal"
               android:layout_marginBottom="10dp">
 
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_cancel"
+               android:layout_gravity="center"
+               android:visibility="invisible"/>
+
     <LinearLayout android:layout_width="0dp"
                   android:layout_height="wrap_content"
                   android:layout_weight="0.3"
-                  android:orientation="vertical">
+                  android:orientation="vertical"
+                  android:layout_marginStart="10dp">
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="@string/time"
                   android:textColor="@color/black"
-                  android:textSize="18dp"/>
+                  android:textSize="16dp"/>
 
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  tools:text="6:00"
-                  android:textSize="14dp"
-                  android:textColor="@color/gray"
-                  android:layout_marginBottom="10dp"/>
+        <TextView
+                android:id="@+id/addTakingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="6:00"
+                android:textSize="14dp"
+                android:textColor="@color/gray"
+                android:layout_marginBottom="10dp"/>
 
     </LinearLayout>
 
@@ -34,13 +43,14 @@
                   android:layout_height="wrap_content"
                   android:text="@string/dosage"
                   android:textColor="@color/black"
-                  android:textSize="18dp"/>
+                  android:textSize="16dp"/>
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:orientation="horizontal">
 
             <EditText
+                    android:id="@+id/addTakingTimeDosage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"

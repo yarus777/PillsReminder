@@ -2,7 +2,6 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/durationLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -16,6 +15,7 @@
             android:textSize="18dp"/>
 
     <EditText
+            android:id="@+id/durationEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="10"
@@ -23,7 +23,6 @@
             android:textColor="@color/gray"
             android:layout_marginBottom="10dp"
             android:background="@android:color/transparent"
-            android:hint="10"
             android:inputType="number"/>
 
 </LinearLayout>

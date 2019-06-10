@@ -16,11 +16,19 @@ import com.template.drugsreminder.utils.SimpleViewHolder
 import com.template.drugsreminder.utils.observe
 import kotlinx.android.synthetic.main.fragment_add_medicine.*
 import kotlinx.android.synthetic.main.medicine_picture_item_view.*
+import kotlinx.android.synthetic.main.time_item_view.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.math.roundToInt
 
 class AddMedicineFragment : BaseFragment() {
     private lateinit var adapter: SimpleRecyclerAdapter<MedicinePicture>
 
     private lateinit var model: AddMedicineViewModel
+
+    private lateinit var takingTimeAdapter: SimpleRecyclerAdapter<TakingTime>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_add_medicine, container, false)
@@ -39,7 +47,7 @@ class AddMedicineFragment : BaseFragment() {
         addMedicineDurationLayout.setOnClickListener {
             getNavController().navigate(
                 R.id.action_addMedicine_to_duration,
-                DurationViewModel(model.duration)
+                DurationViewModel(model.duration, model.startDate)
             )
         }
         addMedicineFrequencyLayout.setOnClickListener {
@@ -53,22 +61,53 @@ class AddMedicineFragment : BaseFragment() {
         adapter = SimpleRecyclerAdapter(prepareAdapterData(), ::MedicinePictureViewHolder)
         addMedicinePictureList.adapter = adapter
 
+        addMedicineTakingTimeList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
         addMedicineSaveBtn.setOnClickListener { getNavController().navigateUp() }
 
         model.frequency.observe(this) {
             addMedicineFrequencyValue.text = when (it) {
-                is TimesADay -> resources.getString(R.string.x_times_a_day_pattern, it.timesCount)
-                is HoursADay -> resources.getString(R.string.every_x_hours_a_day_pattern, it.hoursCount)
-                is DaysAWeek -> resources.getString(R.string.every_x_days_pattern, it.daysCount)
+                is TimesADay -> {
+                    setAddTakingTime(false)
+                    resources.getString(R.string.x_times_a_day_pattern, it.timesCount)
+                }
+                is HoursADay -> {
+                    setAddTakingTime(false)
+                    resources.getString(R.string.every_x_hours_a_day_pattern, it.hoursCount)
+                }
+                is DaysAWeek -> {
+                    setAddTakingTime(true)
+                    resources.getString(R.string.every_x_days_pattern, it.daysCount)
+                }
                 is Weekly -> {
+                    setAddTakingTime(true)
                     val strings = resources.getStringArray(R.array.week_days).toList()
                     it.weekDays.sortedBy { it }.joinToString(", ") { day -> strings[day] }
                 }
-                is Cycle -> resources.getString(R.string.cycle_pattern, it.activeDaysCount, it.breakDaysCount)
+                is Cycle -> {
+                    setAddTakingTime(true)
+                    resources.getString(R.string.cycle_pattern, it.activeDaysCount, it.breakDaysCount)
+                }
+                else -> ""
+            }
+            takingTimeAdapter = SimpleRecyclerAdapter(prepareTakingTimeAdapterData(it), ::AddTakingTimeViewHolder)
+            addMedicineTakingTimeList.adapter = takingTimeAdapter
+        }
+        model.duration.observe(this) {
+            addMedicineDurationValue.text = when (it) {
+                is WithoutDate -> resources.getString(R.string.no_end_date)
+                is TillDate -> resources.getString(
+                    R.string.till_date_pattern,
+                    DateFormat.getDateInstance(DateFormat.SHORT).format(it.date)
+                )
+                is DurationCount -> resources.getString(R.string.within_x_days_pattern, it.durationCount)
                 else -> ""
             }
         }
-        model.duration.observe(this) { addMedicineDurationValue.text = "" }
+    }
+
+    private fun setAddTakingTime(isVisible: Boolean) {
+        addMedicineTakingTime.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
     private fun prepareAdapterData(): List<MedicinePicture> {
@@ -77,6 +116,26 @@ class AddMedicineFragment : BaseFragment() {
         pictures.recycle()
         return data
     }
+
+    private fun prepareTakingTimeAdapterData(frequency: Frequency?) = when (frequency) {
+        is TimesADay -> {
+            val interval = (24f * 60 / frequency.timesCount).roundToInt()
+            val calendar = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 24)
+                set(Calendar.MINUTE, 0)
+            }
+            (0 until frequency.timesCount).map { i ->
+                TakingTime((calendar.clone() as Calendar).apply {
+                    add(
+                        Calendar.MINUTE,
+                        i * interval
+                    )
+                }.time, 1.0)
+            }
+        }
+        else -> ArrayList<TakingTime>()
+    }
+
 
     private fun onPictureClick(item: MedicinePicture) {
         adapter.data.forEach { it.isSelected = item == it }
@@ -103,4 +162,14 @@ class AddMedicineFragment : BaseFragment() {
     }
 
     private data class MedicinePicture(val imageResource: Int, var isSelected: Boolean)
+
+    private class AddTakingTimeViewHolder(parent: ViewGroup) :
+        SimpleViewHolder<TakingTime>(R.layout.time_item_view, parent) {
+        override fun bind(data: TakingTime) {
+            addTakingTime.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(data.takingTime)
+            addTakingTimeDosage.setText(data.dosage.toString())
+        }
+    }
+
+    private data class TakingTime(val takingTime: Date, val dosage: Double)
 }

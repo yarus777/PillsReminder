@@ -6,142 +6,171 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="14dp"
-        android:orientation="vertical"
         android:background="@color/light_gray">
 
-
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/medicine_name"
-                android:textColor="@color/black"
-                android:textSize="18dp"/>
-
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/medicine_name_edit"
-                tools:text="10"
-                android:textSize="14dp"
-                android:textColor="@color/gray"
-                android:background="@android:color/transparent"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/enter_medicine_name"/>
-
-        <include layout="@layout/separator_view"/>
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/medicine_picture"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"/>
-
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/addMedicinePictureList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/medicine_picture_item_view"
-                tools:itemCount="10"
-                tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                tools:orientation="horizontal"
-                android:overScrollMode="never"
-                android:scrollbars="none"
-                android:layout_marginBottom="10dp"/>
-
-        <include layout="@layout/separator_view"/>
+                android:layout_height="0dp"
+                android:fillViewport="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/addMedicineSaveBtn">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:id="@+id/addMedicineDurationLayout">
+                android:orientation="vertical">
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/duration"
+                    android:text="@string/medicine_name"
                     android:textColor="@color/black"
                     android:textSize="18dp"/>
 
-            <TextView
-                    android:id="@+id/addMedicineDurationValue"
+
+            <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Без даты окончания"
+                    android:id="@+id/medicine_name_edit"
+                    tools:text="10"
                     android:textSize="14dp"
-                    android:textColor="@color/gray"/>
+                    android:textColor="@color/gray"
+                    android:background="@android:color/transparent"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/enter_medicine_name"/>
 
-        </LinearLayout>
-
-        <include layout="@layout/separator_view"/>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="10dp"
-                android:id="@+id/addMedicineFrequencyLayout">
+            <include layout="@layout/separator_view"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/frequency"
+                    android:text="@string/medicine_picture"
                     android:textColor="@color/black"
                     android:textSize="18dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"/>
 
-            <TextView
-                    android:id="@+id/addMedicineFrequencyValue"
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/addMedicinePictureList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1 раз в день"
-                    android:textSize="14dp"
-                    android:textColor="@color/gray"/>
-        </LinearLayout>
+                    tools:listitem="@layout/medicine_picture_item_view"
+                    tools:itemCount="10"
+                    tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    tools:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:layout_marginBottom="10dp"/>
 
-        <include layout="@layout/separator_view"/>
+            <include layout="@layout/separator_view"/>
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/addMedicineTakingTimeLayout">
-
-            <TextView
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/receipt_time"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"
-                    android:layout_marginTop="10dp"/>
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/addMedicineDurationLayout">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/duration"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"/>
+
+                <TextView
+                        android:id="@+id/addMedicineDurationValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Без даты окончания"
+                        android:textSize="14dp"
+                        android:textColor="@color/gray"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/separator_view"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/addMedicineFrequencyLayout">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/frequency"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        android:layout_marginTop="10dp"/>
+
+                <TextView
+                        android:id="@+id/addMedicineFrequencyValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1 раз в день"
+                        android:textSize="14dp"
+                        android:textColor="@color/gray"/>
+            </LinearLayout>
+
+            <include layout="@layout/separator_view"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/addMedicineTakingTimeLayout">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/receipt_time"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/addMedicineTakingTimeList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/time_item_view"
+                    tools:itemCount="5"
+                    tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    tools:orientation="vertical"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginTop="5dp"/>
+
+            <LinearLayout
+                    android:id="@+id/addMedicineTakingTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:src="@drawable/ic_alarm_clock"/>
+
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="@string/add_taking_time"
+                          android:textSize="16dp"
+                          android:layout_marginStart="20dp"
+                          android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/separator_view"/>
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/time_item_view"
-                tools:itemCount="2"
-                tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                tools:orientation="vertical"
-                android:overScrollMode="never"
-                android:scrollbars="none"
-                android:layout_marginTop="5dp"/>
-
-        <include layout="@layout/separator_view"/>
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <Button
             android:id="@+id/addMedicineSaveBtn"

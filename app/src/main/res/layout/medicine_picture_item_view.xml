@@ -8,6 +8,6 @@
             android:id="@+id/addMedicinePicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:android="@drawable/ic_band_aid"/>
+            tools:android="@drawable/ic_herbs"/>
 
 </LinearLayout>

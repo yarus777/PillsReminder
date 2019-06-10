@@ -35,6 +35,10 @@
     <string name="every_x_hours_a_day_pattern">Ежедневно, каждые %1$d часов в день</string>
     <string name="every_x_days_pattern">Каждые %1$d дня(дней)</string>
     <string name="cycle_pattern">%1$d дня(дней) приема, %2$d дня(дней) паузы</string>
+    <string name="within_x_days_pattern">В течение %1$d дня(дней)</string>
+    <string name="till_date_pattern">До %1$s</string>
+
+    <string name="add_taking_time">Добавить время приема</string>
 
     <string name="save">Сохранить</string>
 
@@ -56,7 +60,7 @@
     <string name="monday">Понедельник</string>
     <string name="tuesday">Вторник</string>
     <string name="wednesday">Среда</string>
-    <string name="thursday">Четврег</string>
+    <string name="thursday">Четверг</string>
     <string name="friday">Пятница</string>
     <string name="saturday">Суббота</string>
     <string name="sunday">Воскресенье</string>

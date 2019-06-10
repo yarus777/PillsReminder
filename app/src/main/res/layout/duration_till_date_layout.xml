@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/durationTillDateLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:layout_marginStart="4dp" android:layout_marginEnd="4dp">
 
     <TextView
             android:layout_width="match_parent"
@@ -18,7 +18,8 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="14.06.2019"
+            android:id="@+id/durationTillDate"
+            tools:text="14.06.2019"
             android:textSize="14dp"
             android:textColor="@color/gray"
             android:layout_marginBottom="10dp"/>
