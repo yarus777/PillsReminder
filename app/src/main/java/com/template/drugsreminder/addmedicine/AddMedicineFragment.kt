@@ -1,11 +1,14 @@
 package com.template.drugsreminder.addmedicine
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import com.template.drugsreminder.R
 import com.template.drugsreminder.base.BaseFragment
 import com.template.drugsreminder.duration.DurationViewModel
@@ -14,6 +17,7 @@ import com.template.drugsreminder.models.*
 import com.template.drugsreminder.utils.SimpleRecyclerAdapter
 import com.template.drugsreminder.utils.SimpleViewHolder
 import com.template.drugsreminder.utils.observe
+import kotlinx.android.synthetic.main.duration_till_date_layout.view.*
 import kotlinx.android.synthetic.main.fragment_add_medicine.*
 import kotlinx.android.synthetic.main.medicine_picture_item_view.*
 import kotlinx.android.synthetic.main.time_item_view.*
@@ -163,11 +167,33 @@ class AddMedicineFragment : BaseFragment() {
 
     private data class MedicinePicture(val imageResource: Int, var isSelected: Boolean)
 
-    private class AddTakingTimeViewHolder(parent: ViewGroup) :
+    private inner class AddTakingTimeViewHolder(parent: ViewGroup) :
         SimpleViewHolder<TakingTime>(R.layout.time_item_view, parent) {
         override fun bind(data: TakingTime) {
-            addTakingTime.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(data.takingTime)
+            addTakingTime.apply {
+                text = DateFormat.getTimeInstance(DateFormat.SHORT).format(data.takingTime)
+                val calendar = Calendar.getInstance()
+                setOnClickListener {
+                    TimePickerDialog(
+                        context, TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                            Calendar.getInstance().apply {
+                                set(Calendar.HOUR_OF_DAY, hour)
+                                set(Calendar.MINUTE, minute)
+                                text = DateFormat.getTimeInstance(DateFormat.SHORT).format(this.time)
+                            }
+                        },
+                        calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE),
+                        true
+                    )
+                        .show()
+                }
+            }
             addTakingTimeDosage.setText(data.dosage.toString())
+            val strings = resources.getStringArray(R.array.medicine_types).toList()
+            val arrayAdapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, strings)
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            addTakingTimeDosageSpinner.adapter = arrayAdapter
         }
     }
 
