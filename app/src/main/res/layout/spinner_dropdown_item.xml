@@ -8,6 +8,7 @@
           tools:text="Таблетка"
           android:textSize="14dp"
           android:textColor="@color/gray"
-          android:gravity="end">
+          android:paddingStart="4dp"
+          android:paddingBottom="4dp">
 
 </TextView>

@@ -53,7 +53,7 @@
                     android:id="@+id/addTakingTimeDosage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.4"
                     tools:text="2.5"
                     android:textSize="14dp"
                     android:textColor="@color/gray"

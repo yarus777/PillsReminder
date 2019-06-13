@@ -1,6 +1,5 @@
 package com.template.drugsreminder.addmedicine
 
-import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -16,16 +15,17 @@ import com.template.drugsreminder.frequency.FrequencyViewModel
 import com.template.drugsreminder.models.*
 import com.template.drugsreminder.utils.SimpleRecyclerAdapter
 import com.template.drugsreminder.utils.SimpleViewHolder
+import com.template.drugsreminder.utils.addOnTextChangedListener
 import com.template.drugsreminder.utils.observe
-import kotlinx.android.synthetic.main.duration_till_date_layout.view.*
 import kotlinx.android.synthetic.main.fragment_add_medicine.*
 import kotlinx.android.synthetic.main.medicine_picture_item_view.*
 import kotlinx.android.synthetic.main.time_item_view.*
 import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
+
+
 
 class AddMedicineFragment : BaseFragment() {
     private lateinit var adapter: SimpleRecyclerAdapter<MedicinePicture>
@@ -67,7 +67,18 @@ class AddMedicineFragment : BaseFragment() {
 
         addMedicineTakingTimeList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        addMedicineSaveBtn.setOnClickListener { getNavController().navigateUp() }
+        addMedicineSaveBtn.setOnClickListener {
+            model.serializeData()
+            getNavController().navigateUp()
+        }
+
+        addMedicineName.addOnTextChangedListener {
+            model.medicineName.value = it
+        }
+
+        model.medicineName.observe(this) {
+            addMedicineSaveBtn.isEnabled = it!!.isNotEmpty()
+        }
 
         model.frequency.observe(this) {
             addMedicineFrequencyValue.text = when (it) {
@@ -108,6 +119,7 @@ class AddMedicineFragment : BaseFragment() {
                 else -> ""
             }
         }
+
     }
 
     private fun setAddTakingTime(isVisible: Boolean) {
@@ -191,11 +203,12 @@ class AddMedicineFragment : BaseFragment() {
             }
             addTakingTimeDosage.setText(data.dosage.toString())
             val strings = resources.getStringArray(R.array.medicine_types).toList()
-            val arrayAdapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, strings)
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            val arrayAdapter = ArrayAdapter(context!!, R.layout.spinner_item, strings)
+            arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
             addTakingTimeDosageSpinner.adapter = arrayAdapter
         }
     }
 
     private data class TakingTime(val takingTime: Date, val dosage: Double)
+
 }

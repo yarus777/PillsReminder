@@ -6,7 +6,7 @@ abstract class Duration {
     abstract val category: DurationCategory
 }
 
-class WithoutDate() : Duration() {
+class WithoutDate : Duration() {
     override val category = DurationCategory.WithoutDate
 }
 

@@ -10,10 +10,10 @@
 
     <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:fillViewport="true"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/addMedicineSaveBtn">
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/addMedicineSaveBtn">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -29,9 +29,9 @@
 
 
             <EditText
+                    android:id="@+id/addMedicineName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/medicine_name_edit"
                     tools:text="10"
                     android:textSize="14dp"
                     android:textColor="@color/gray"
@@ -176,9 +176,10 @@
             android:id="@+id/addMedicineSaveBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/yellow_green"
+            android:background="@drawable/button_selector"
             android:text="@string/save"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:enabled="false"/>
 
 </android.support.constraint.ConstraintLayout>
