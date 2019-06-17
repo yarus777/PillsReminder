@@ -19,6 +19,7 @@
             android:paddingTop="6dp"/>
 
     <android.support.v7.widget.RecyclerView
+            android:id="@+id/scheduleList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/schedule_item_view"
@@ -32,7 +33,6 @@
     </android.support.v7.widget.RecyclerView>
 
     <com.github.clans.fab.FloatingActionMenu
-            android:id="@+id/fab_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp"

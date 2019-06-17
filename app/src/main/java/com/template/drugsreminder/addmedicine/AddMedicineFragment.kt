@@ -97,7 +97,7 @@ class AddMedicineFragment : BaseFragment() {
                 is Weekly -> {
                     setAddTakingTime(true)
                     val strings = resources.getStringArray(R.array.week_days).toList()
-                    it.weekDays.sortedBy { it }.joinToString(", ") { day -> strings[day] }
+                    it.weekDays.sortedBy { it }.joinToString(", ") { day -> strings[day.code] }
                 }
                 is Cycle -> {
                     setAddTakingTime(true)
@@ -156,6 +156,7 @@ class AddMedicineFragment : BaseFragment() {
     private fun onPictureClick(item: MedicinePicture) {
         adapter.data.forEach { it.isSelected = item == it }
         adapter.notifyDataSetChanged()
+        model.medicinePicture.value = adapter.data.indexOf(item)
     }
 
     private inner class MedicinePictureViewHolder(parent: ViewGroup) :

@@ -1,71 +1,61 @@
 package com.template.drugsreminder.main
 
-import android.os.Environment
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonDeserializer
 import com.template.drugsreminder.base.BaseViewModel
-import java.io.File
+import com.template.drugsreminder.data.medicine.MedicineManager
 import com.template.drugsreminder.models.*
-import java.text.SimpleDateFormat
+import com.template.drugsreminder.utils.dayOfWeek
+import com.template.drugsreminder.utils.daysTo
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainViewModel : BaseViewModel() {
 
-    companion object {
-        val file = File(Environment.getExternalStorageDirectory().path + "/medicine.json")
-    }
+    lateinit var medicineList: List<MedicineModel>
 
+    lateinit var pictures: List<Int>
 
     fun deserializeData() {
-        if (file.exists())
-            readFile()
+        medicineList = MedicineManager.list
     }
 
-    private fun readFile() {
-        val json = file.readText()
+    fun selectData(date: Date): ArrayList<ScheduleMedicineModel> {
+        val scheduleMedicineList = ArrayList<ScheduleMedicineModel>()
 
-        val gsonBuilder = GsonBuilder()
+        for (item in medicineList) {
+            if (item.duration.startDate >= date) continue
 
-        val deserializer = JsonDeserializer<MedicineModel> { json, typeOfT, context ->
-
-            val jsonObject = json.asJsonObject
-
-            val frequencyObject = jsonObject.get("frequency").asJsonObject
-            val durationObject = jsonObject.get("duration").asJsonObject
-
-            var frequency: Frequency? = null
-            var duration: Duration? = null
-
-            when {
-                frequencyObject.has("timesaday") -> frequency = TimesADay(frequencyObject.get("timesaday").asInt)
-                frequencyObject.has("hoursaday") -> frequency = HoursADay(frequencyObject.get("hoursaday").asInt)
-                frequencyObject.has("daysaweek") -> frequency = DaysAWeek(frequencyObject.get("daysaweek").asInt)
-                frequencyObject.has("weekly") -> {
-                    val weekDays = frequencyObject.get("weekly").asJsonArray
-                    frequency = Weekly((0..weekDays.size()).map { i -> weekDays.get(i).asInt }.toHashSet())
+            val needToAddItem = when (item.duration.duration) {
+                is WithoutDate -> checkFrequency(item.frequency, date, item)
+                is TillDate -> item.duration.duration.date >= date && checkFrequency(item.frequency, date, item)
+                is DurationCount -> {
+                    val endDate = Calendar.getInstance()
+                        .apply { add(Calendar.DAY_OF_MONTH, item.duration.duration.durationCount) }.time
+                    endDate >= date && checkFrequency(item.frequency, date, item)
                 }
-                frequencyObject.has("cycle") -> {
-                    val cycle = frequencyObject.get("cycle").asJsonObject
-                    frequency =
-                        Cycle(cycle.get("activedays").asInt, cycle.get("breakdays").asInt, cycle.get("cycleday").asInt)
-                }
+                else -> false
             }
+            if (needToAddItem) scheduleMedicineList.add(ScheduleMedicineModel(item.name, pictures[item.img]))
+        }
+        return scheduleMedicineList
+    }
 
-            when {
-                durationObject.has("withoutdate") -> duration = WithoutDate()
-                durationObject.has("tilldate") -> duration = TillDate(Date(durationObject.get("tilldate").asLong))
-                durationObject.has("durationcount") -> duration = DurationCount(durationObject.get("durationcount").asInt)
+    private fun checkFrequency(frequency: Frequency, date: Date, item: MedicineModel) =
+        when (frequency) {
+            is DaysAWeek -> {
+                val daysSinceStart = item.duration.startDate.daysTo(date)
+                daysSinceStart % frequency.daysCount == 0
             }
-
-            val durationModel = DurationModel(Date(durationObject.get("startdate").asLong), duration!!)
-
-            MedicineModel(jsonObject.get("name").asString, frequency!!, durationModel)
+            is Weekly -> {
+                frequency.weekDays.contains(date.dayOfWeek)
+            }
+            is Cycle -> {
+                true
+            }
+            is TimesADay -> true
+            is HoursADay -> true
+            else -> false
         }
 
-        gsonBuilder.registerTypeAdapter(MedicineModel::class.java, deserializer)
 
-        val customGson = gsonBuilder.create()
-        val model = customGson.fromJson(json, MedicineModel::class.java)
-    }
 }

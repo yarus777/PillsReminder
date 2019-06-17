@@ -52,7 +52,7 @@ class FrequencyFragment : BaseFragment() {
             FrequencyOption(TimesADay(1), R.string.x_times_a_day) { parent, item -> initTimesADay(parent, item) },
             FrequencyOption(HoursADay(1), R.string.every_x_hours_a_day) { parent, item -> initHoursADay(parent, item) },
             FrequencyOption(DaysAWeek(1), R.string.every_x_days) { parent, item -> initDaysAWeek(parent, item) },
-            FrequencyOption(Weekly((0..4).toHashSet()), R.string.certain_week_days) { parent, item ->
+            FrequencyOption(Weekly(WeekDay.workdays), R.string.certain_week_days) { parent, item ->
                 initWeekly(
                     parent,
                     item
@@ -120,7 +120,7 @@ class FrequencyFragment : BaseFragment() {
         val v = LayoutInflater.from(context).inflate(R.layout.frequency_week_days_layout, parent, true)
         v.frequencyWeekDaysList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val daysNames: List<String> = resources.getStringArray(R.array.week_days).toList()
-        val data = (0..6).map { WeekDayOption(it, daysNames[it], (frequency as Weekly).weekDays.contains(it)) }
+        val data = WeekDay.values().map { WeekDayOption(it, daysNames[it.code], (frequency as Weekly).weekDays.contains(it)) }
         v.frequencyWeekDaysList.adapter = SimpleRecyclerAdapter(data, ::WeekDayViewHolder)
         return v
     }
@@ -212,7 +212,7 @@ class FrequencyFragment : BaseFragment() {
     }
 
     private data class WeekDayOption(
-        val dayPos: Int,
+        val dayPos: WeekDay,
         val dayName: String,
         var isSelected: Boolean = false
 

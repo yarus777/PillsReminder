@@ -18,6 +18,16 @@
             android:padding="17dp"
             android:gravity="center_vertical">
 
+        <TextView
+                android:id="@+id/takingTime"
+                android:layout_width="0dp"
+                android:layout_weight="0.15"
+                android:layout_height="wrap_content"
+                tools:text="22:22"
+                android:textSize="14dp"
+                android:textColor="@android:color/black"
+                android:gravity="end"/>
+
         <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -27,13 +37,16 @@
                 android:layout_marginEnd="10dp">
 
             <TextView
+                    android:id="@+id/medicineName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Валидол"
                     android:textSize="14dp"
                     android:textColor="@android:color/black"/>
 
+
             <TextView
+                    android:id="@+id/medicineDosage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="1 таблетка"
@@ -43,6 +56,7 @@
 
 
         <ImageView
+                android:id="@+id/medicinePicture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_herbs"/>

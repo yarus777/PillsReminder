@@ -5,21 +5,33 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import com.template.drugsreminder.R
+import com.template.drugsreminder.addmedicine.AddMedicineFragment
 import com.template.drugsreminder.addmedicine.AddMedicineViewModel
 import com.template.drugsreminder.base.BaseFragment
+import com.template.drugsreminder.duration.DurationFragment
+import com.template.drugsreminder.models.MedicineModel
+import com.template.drugsreminder.models.ScheduleMedicineModel
+import com.template.drugsreminder.utils.SimpleRecyclerAdapter
+import com.template.drugsreminder.utils.SimpleViewHolder
 import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
+import kotlinx.android.synthetic.main.fragment_add_medicine.*
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.schedule_item_view.*
 import java.util.*
 
 
 class MainFragment : BaseFragment() {
 
     private lateinit var model: MainViewModel
+
+    lateinit var scheduleListAdapter: SimpleRecyclerAdapter<ScheduleMedicineModel>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -29,6 +41,11 @@ class MainFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         model = getViewModel(MainViewModel::class)!!
+
+        val pictures = resources.obtainTypedArray(R.array.medicine_pictures)
+        val pics = (0..pictures.length()).map { i -> pictures.getResourceId(i, 0) }
+        pictures.recycle()
+        model.pictures = pics
 
         mainMenuAddMedicine.setOnClickListener { getNavController().navigate(R.id.action_main_to_addMedicine) }
 
@@ -43,12 +60,17 @@ class MainFragment : BaseFragment() {
             .end()
             .build()
 
+        readFile()
+
+        scheduleList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
         calendar.calendarListener = object : HorizontalCalendarListener() {
             override fun onDateSelected(date: Calendar?, position: Int) {
+                scheduleListAdapter = SimpleRecyclerAdapter(model.selectData(date!!.time), ::ScheduleItemHolder)
+                scheduleList.adapter = scheduleListAdapter
             }
         }
 
-        readFile()
     }
 
     private val PERMISSION_CODE = 100
@@ -81,4 +103,15 @@ class MainFragment : BaseFragment() {
             }
         }
     }
+
+    private inner class ScheduleItemHolder(parent: ViewGroup) :
+        SimpleViewHolder<ScheduleMedicineModel>(R.layout.schedule_item_view, parent) {
+
+        override fun bind(data: ScheduleMedicineModel) {
+            medicineName.text = data.name
+            medicinePicture.setImageResource(data.picture)
+        }
+
+    }
+
 }
