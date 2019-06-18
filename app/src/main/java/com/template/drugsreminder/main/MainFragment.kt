@@ -4,12 +4,13 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.recyclerview.widget.RecyclerView
 import com.template.drugsreminder.R
 import com.template.drugsreminder.addmedicine.AddMedicineFragment
 import com.template.drugsreminder.addmedicine.AddMedicineViewModel
@@ -62,7 +63,11 @@ class MainFragment : BaseFragment() {
 
         readFile()
 
-        scheduleList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        scheduleList.layoutManager = LinearLayoutManager(
+            context,
+            RecyclerView.VERTICAL,
+            false
+        )
 
         calendar.calendarListener = object : HorizontalCalendarListener() {
             override fun onDateSelected(date: Calendar?, position: Int) {

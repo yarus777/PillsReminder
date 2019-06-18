@@ -1,9 +1,9 @@
 package com.template.drugsreminder.base
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LifecycleRegistry
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.ViewModel
 
 abstract class BaseViewModel protected constructor() : ViewModel(), LifecycleOwner {
 

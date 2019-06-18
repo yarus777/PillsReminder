@@ -5,10 +5,13 @@ import kotlin.collections.HashSet
 
 abstract class Frequency {
     abstract val category: FrequencyCategory
+    open val times: Int?
+        get() = null
 }
 
 data class TimesADay(var timesCount: Int) : Frequency() {
     override val category = FrequencyCategory.TimesADay
+    override val times = timesCount
 }
 
 data class HoursADay(var hoursCount: Int) : Frequency() {

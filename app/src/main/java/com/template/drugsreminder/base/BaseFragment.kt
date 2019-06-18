@@ -1,18 +1,18 @@
 package com.template.drugsreminder.base
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import kotlin.reflect.KClass
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : androidx.fragment.app.Fragment() {
 
     protected val config = Config()
 
@@ -68,7 +68,7 @@ abstract class BaseFragment : Fragment() {
     }
 
 
-    protected inner class FragmentNavigationController internal constructor(private val fragment: Fragment) {
+    protected inner class FragmentNavigationController internal constructor(private val fragment: androidx.fragment.app.Fragment) {
 
         private val rawController: NavController
             get() = getNavHost().getNavController()

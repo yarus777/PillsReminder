@@ -1,10 +1,10 @@
 package com.template.drugsreminder.main
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
-import android.support.design.widget.BottomNavigationView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.Navigation

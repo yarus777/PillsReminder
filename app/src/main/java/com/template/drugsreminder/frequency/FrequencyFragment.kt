@@ -1,8 +1,8 @@
 package com.template.drugsreminder.frequency
 
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.LinearLayoutManager
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -60,7 +60,11 @@ class FrequencyFragment : BaseFragment() {
             },
             FrequencyOption(Cycle(21, 7, 1), R.string.cycle) { parent, item -> initCycle(parent, item) }
         )
-        frequencyOptionsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        frequencyOptionsList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+            false
+        )
         adapter = SimpleRecyclerAdapter(data, ::FrequencyOptionsHolder)
         frequencyOptionsList.adapter = adapter
 
@@ -118,7 +122,11 @@ class FrequencyFragment : BaseFragment() {
 
     private fun initWeekly(parent: ViewGroup, frequency: Frequency): View {
         val v = LayoutInflater.from(context).inflate(R.layout.frequency_week_days_layout, parent, true)
-        v.frequencyWeekDaysList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        v.frequencyWeekDaysList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+            false
+        )
         val daysNames: List<String> = resources.getStringArray(R.array.week_days).toList()
         val data = WeekDay.values().map { WeekDayOption(it, daysNames[it.code], (frequency as Weekly).weekDays.contains(it)) }
         v.frequencyWeekDaysList.adapter = SimpleRecyclerAdapter(data, ::WeekDayViewHolder)

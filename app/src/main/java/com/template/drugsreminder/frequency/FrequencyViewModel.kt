@@ -1,6 +1,6 @@
 package com.template.drugsreminder.frequency
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.template.drugsreminder.base.BaseViewModel
 import com.template.drugsreminder.models.Frequency
 import com.template.drugsreminder.models.TimesADay

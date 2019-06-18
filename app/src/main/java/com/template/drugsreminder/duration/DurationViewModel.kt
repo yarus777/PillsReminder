@@ -1,6 +1,6 @@
 package com.template.drugsreminder.duration
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.template.drugsreminder.base.BaseViewModel
 import com.template.drugsreminder.models.Duration
 import com.template.drugsreminder.models.WithoutDate

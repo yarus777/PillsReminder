@@ -1,8 +1,13 @@
 package com.template.drugsreminder.utils
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
+import androidx.annotation.LayoutRes
 import com.google.gson.reflect.TypeToken
 import com.template.drugsreminder.models.WeekDay
 import java.util.*
@@ -19,6 +24,9 @@ fun EditText.addOnTextChangedListener(listener: (String) -> Unit): TextWatcher {
     this.addTextChangedListener(watcher)
     return watcher
 }
+
+fun View.inflate(@LayoutRes rId: Int, parent: ViewGroup? = null, attachToParent: Boolean = false) = context.inflate(rId, parent, attachToParent)
+fun Context.inflate(@LayoutRes rId: Int, parent: ViewGroup? = null, attachToParent: Boolean = false): View = LayoutInflater.from(this).inflate(rId, parent, attachToParent)
 
 inline fun <reified T> genericType() = object : TypeToken<T>() {}.type
 
