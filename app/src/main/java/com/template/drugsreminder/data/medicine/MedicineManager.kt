@@ -16,29 +16,31 @@ object MedicineManager {
         .registerTypeAdapter(genericType<List<MedicineModel>>(), MedicineListSerializer())
         .create()
 
-    private lateinit var medicines: MutableList<MedicineModel>
+    private var medicines: MutableList<MedicineModel>? = null
 
     fun init(context: Context) {
         file = File(context.applicationContext.cacheDir, FILENAME)
-        medicines = load() ?: ArrayList()
     }
 
-    private fun load(): MutableList<MedicineModel>? =
-        if (file.exists()) gson.fromJson<List<MedicineModel>>(
-            file.readText(),
-            genericType<List<MedicineModel>>()
-        ).toMutableList()
-        else null
+    fun load(): MutableList<MedicineModel> {
+        if(medicines != null) return medicines!!
+        medicines = if (file.exists()) {
+                  gson.fromJson<List<MedicineModel>>(
+                file.readText(),
+                genericType<List<MedicineModel>>()
+            ).toMutableList()
+        } else null
+        if(medicines == null) medicines = ArrayList()
+        return medicines!!
+    }
 
     private fun save(data: List<MedicineModel>) = file.writeText(gson.toJson(data))
 
     fun add(model: MedicineModel) {
-        medicines.apply {
+        if(medicines == null) medicines = ArrayList()
+        medicines!!.apply {
             add(model)
-            save(medicines)
+            save(this)
         }
     }
-
-    val list: List<MedicineModel>
-        get() = medicines
 }

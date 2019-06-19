@@ -5,13 +5,12 @@ import kotlin.collections.HashSet
 
 abstract class Frequency {
     abstract val category: FrequencyCategory
-    open val times: Int?
-        get() = null
+    open val fixedSize: Boolean
+        get() = true
 }
 
 data class TimesADay(var timesCount: Int) : Frequency() {
     override val category = FrequencyCategory.TimesADay
-    override val times = timesCount
 }
 
 data class HoursADay(var hoursCount: Int) : Frequency() {
@@ -20,14 +19,17 @@ data class HoursADay(var hoursCount: Int) : Frequency() {
 
 data class DaysAWeek(var daysCount: Int) : Frequency() {
     override val category = FrequencyCategory.DaysAWeek
+    override val fixedSize = false
 }
 
 data class Weekly(var weekDays: HashSet<WeekDay>) : Frequency() {
     override val category = FrequencyCategory.Weekly
+    override val fixedSize = false
 }
 
 data class Cycle(var activeDaysCount: Int, var breakDaysCount: Int, var cycleDay: Int) : Frequency() {
     override val category = FrequencyCategory.Cycle
+    override val fixedSize = false
 }
 
 enum class FrequencyCategory {

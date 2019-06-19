@@ -4,112 +4,124 @@ import com.google.gson.*
 import com.template.drugsreminder.models.*
 import java.lang.reflect.Type
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MedicineSerializer : JsonSerializer<MedicineModel>, JsonDeserializer<MedicineModel> {
     override fun serialize(
         medicineModel: MedicineModel,
         typeOfSrc: Type,
         context: JsonSerializationContext
-    ): JsonElement {
-        val medicineObject = JsonObject()
-        medicineObject.addProperty("name", medicineModel.name)
-        medicineObject.addProperty("picture", medicineModel.img)
+    ) = JsonObject().apply {
+        addProperty("name", medicineModel.name)
+        addProperty("picture", medicineModel.img)
 
-        val frequencyObject = JsonObject()
-
-        when (val frequency = medicineModel.frequency) {
-            is TimesADay -> {
-                frequencyObject.addProperty("timesaday", frequency.timesCount)
-            }
-            is HoursADay -> {
-                frequencyObject.addProperty("hoursaday", frequency.hoursCount)
-            }
-            is DaysAWeek -> {
-                frequencyObject.addProperty("daysaweek", frequency.daysCount)
-            }
-            is Weekly -> {
-                val weekDays = JsonArray()
-                for (item in frequency.weekDays) {
-                    weekDays.add(item.code)
+        add("frequency", JsonObject().apply {
+            when (val frequency = medicineModel.frequency) {
+                is TimesADay -> {
+                    addProperty("timesaday", frequency.timesCount)
                 }
-                frequencyObject.add("weekly", weekDays)
+                is HoursADay -> {
+                    addProperty("hoursaday", frequency.hoursCount)
+                }
+                is DaysAWeek -> {
+                    addProperty("daysaweek", frequency.daysCount)
+                }
+                is Weekly -> {
+                    add("weekly", JsonArray().apply { frequency.weekDays.onEach { add(it.code) } })
+                }
+                is Cycle -> {
+                    add("cycle", JsonObject().apply {
+                        addProperty("activedays", frequency.activeDaysCount)
+                        addProperty("breakdays", frequency.breakDaysCount)
+                        addProperty("cycleday", frequency.cycleDay)
+                    })
+                }
             }
-            is Cycle -> {
-                val cycleObject = JsonObject()
-                cycleObject.addProperty("activedays", frequency.activeDaysCount)
-                cycleObject.addProperty("breakdays", frequency.breakDaysCount)
-                cycleObject.addProperty("cycleday", frequency.cycleDay)
-                frequencyObject.add("cycle", cycleObject)
+        })
+
+        add("duration", JsonObject().apply {
+            addProperty("startdate", medicineModel.duration.startDate.time)
+            when (val duration = medicineModel.duration.duration) {
+                is WithoutDate -> {
+                    addProperty("withoutdate", "")
+                }
+                is TillDate -> {
+                    addProperty("tilldate", duration.date.time)
+                }
+                is DurationCount -> {
+                    addProperty("durationcount", duration.durationCount)
+                }
             }
-        }
+        })
 
-        medicineObject.add("frequency", frequencyObject)
 
-        val durationObject = JsonObject()
-
-        durationObject.addProperty("startdate", medicineModel.duration.startDate?.time)
-
-        when (val duration = medicineModel.duration.duration) {
-
-            is WithoutDate -> {
-                durationObject.addProperty("withoutdate", "")
+        add("takingtimes", JsonArray().apply {
+            medicineModel.takingTimes.onEach {
+                add(JsonObject().apply {
+                    addProperty("time", it.takingTime.time)
+                    addProperty("dosage", it.dosage)
+                })
             }
-            is TillDate -> {
-                durationObject.addProperty("tilldate", duration.date.time)
-            }
-            is DurationCount -> {
-                durationObject.addProperty("durationcount", duration.durationCount)
-            }
-
-        }
-
-        medicineObject.add("duration", durationObject)
-
-        return medicineObject
+        })
     }
 
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): MedicineModel {
-        val jsonObject = json.asJsonObject
 
-        val frequencyObject = jsonObject.get("frequency").asJsonObject
-        val durationObject = jsonObject.get("duration").asJsonObject
+        lateinit var frequency: Frequency
+        lateinit var duration: Duration
+        val durationModel: DurationModel
+        val takingTimes: ArrayList<TakingTime> = ArrayList()
 
-        var frequency: Frequency? = null
-        var duration: Duration? = null
+        val jsonObject = json.asJsonObject.apply {
 
-        when {
-            frequencyObject.has("timesaday") -> frequency = TimesADay(frequencyObject.get("timesaday").asInt)
-            frequencyObject.has("hoursaday") -> frequency = HoursADay(frequencyObject.get("hoursaday").asInt)
-            frequencyObject.has("daysaweek") -> frequency = DaysAWeek(frequencyObject.get("daysaweek").asInt)
-            frequencyObject.has("weekly") -> {
-                val weekDays = frequencyObject.get("weekly").asJsonArray.map { WeekDay.fromCode(it.asInt) }.toHashSet()
-                frequency = Weekly(weekDays)
+            get("frequency").asJsonObject.apply {
+                when {
+                    has("timesaday") -> frequency = TimesADay(get("timesaday").asInt)
+                    has("hoursaday") -> frequency = HoursADay(get("hoursaday").asInt)
+                    has("daysaweek") -> frequency = DaysAWeek(get("daysaweek").asInt)
+                    has("weekly") -> {
+                        frequency = Weekly(get("weekly").asJsonArray.map { WeekDay.fromCode(it.asInt) }.toHashSet())
+                    }
+                    has("cycle") -> {
+                        get("cycle").asJsonObject.apply {
+                            frequency =
+                                Cycle(
+                                    get("activedays").asInt,
+                                    get("breakdays").asInt,
+                                    get("cycleday").asInt
+                                )
+                        }
+
+                    }
+                }
             }
-            frequencyObject.has("cycle") -> {
-                val cycle = frequencyObject.get("cycle").asJsonObject
-                frequency =
-                    Cycle(
-                        cycle.get("activedays").asInt,
-                        cycle.get("breakdays").asInt,
-                        cycle.get("cycleday").asInt
+
+            get("duration").asJsonObject.apply {
+                when {
+                    has("withoutdate") -> duration = WithoutDate()
+                    has("tilldate") -> duration = TillDate(Date(get("tilldate").asLong))
+                    has("durationcount") -> duration = DurationCount(get("durationcount").asInt)
+                }
+                durationModel = DurationModel(Date(get("startdate").asLong), duration)
+            }
+
+            takingTimes.apply {
+                get("takingtimes").asJsonArray.onEach {
+                    add(
+                        TakingTime(
+                            Date(it.asJsonObject.get("time").asLong),
+                            it.asJsonObject.get("dosage").asDouble
+                        )
                     )
+                }
             }
         }
-
-        when {
-            durationObject.has("withoutdate") -> duration = WithoutDate()
-            durationObject.has("tilldate") -> duration = TillDate(Date(durationObject.get("tilldate").asLong))
-            durationObject.has("durationcount") -> duration =
-                DurationCount(durationObject.get("durationcount").asInt)
-        }
-
-        val durationModel = DurationModel(Date(durationObject.get("startdate").asLong), duration!!)
 
         return MedicineModel(
             jsonObject.get("name").asString,
             jsonObject.get("picture").asInt,
-            frequency!!,
-            durationModel
+            frequency,
+            durationModel, takingTimes
         )
     }
 }
@@ -118,7 +130,7 @@ class MedicineSerializer : JsonSerializer<MedicineModel>, JsonDeserializer<Medic
 class MedicineListSerializer : JsonSerializer<List<MedicineModel>>, JsonDeserializer<List<MedicineModel>> {
     override fun serialize(src: List<MedicineModel>, typeOfSrc: Type?, context: JsonSerializationContext) =
         JsonArray().apply {
-            src.map { context.serialize(it).let { jsonElem -> add(jsonElem) } }
+            src.map { add(context.serialize(it)) }
         }
 
     override fun deserialize(json: JsonElement, typeOfT: Type?, context: JsonDeserializationContext) =

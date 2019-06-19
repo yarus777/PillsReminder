@@ -3,13 +3,12 @@ package com.template.drugsreminder.frequency
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.recyclerview.widget.RecyclerView
 import com.template.drugsreminder.R
-import com.template.drugsreminder.addmedicine.AddMedicineFragment
 import com.template.drugsreminder.base.BaseFragment
 import com.template.drugsreminder.models.*
 import com.template.drugsreminder.utils.SimpleRecyclerAdapter
@@ -18,13 +17,9 @@ import com.template.drugsreminder.utils.addOnTextChangedListener
 import com.template.drugsreminder.utils.observe
 import kotlinx.android.synthetic.main.fragment_frequency.*
 import kotlinx.android.synthetic.main.frequency_cycle_layout.*
-import kotlinx.android.synthetic.main.frequency_every_x_day_layout.*
 import kotlinx.android.synthetic.main.frequency_every_x_day_layout.view.*
-import kotlinx.android.synthetic.main.frequency_every_x_hours_a_day_layout.*
-import kotlinx.android.synthetic.main.frequency_every_x_hours_a_day_layout.frequencyEveryXHourADayEdit
 import kotlinx.android.synthetic.main.frequency_every_x_hours_a_day_layout.view.*
 import kotlinx.android.synthetic.main.frequency_week_days_layout.view.*
-import kotlinx.android.synthetic.main.frequency_x_times_a_day_layout.*
 import kotlinx.android.synthetic.main.frequency_x_times_a_day_layout.view.*
 import kotlinx.android.synthetic.main.week_day_item_view.*
 
@@ -60,9 +55,8 @@ class FrequencyFragment : BaseFragment() {
             },
             FrequencyOption(Cycle(21, 7, 1), R.string.cycle) { parent, item -> initCycle(parent, item) }
         )
-        frequencyOptionsList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
-            context,
-            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+        frequencyOptionsList.layoutManager = LinearLayoutManager(
+            context, RecyclerView.VERTICAL,
             false
         )
         adapter = SimpleRecyclerAdapter(data, ::FrequencyOptionsHolder)
@@ -122,13 +116,13 @@ class FrequencyFragment : BaseFragment() {
 
     private fun initWeekly(parent: ViewGroup, frequency: Frequency): View {
         val v = LayoutInflater.from(context).inflate(R.layout.frequency_week_days_layout, parent, true)
-        v.frequencyWeekDaysList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
-            context,
-            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+        v.frequencyWeekDaysList.layoutManager = LinearLayoutManager(
+            context, RecyclerView.VERTICAL,
             false
         )
         val daysNames: List<String> = resources.getStringArray(R.array.week_days).toList()
-        val data = WeekDay.values().map { WeekDayOption(it, daysNames[it.code], (frequency as Weekly).weekDays.contains(it)) }
+        val data =
+            WeekDay.values().map { WeekDayOption(it, daysNames[it.code], (frequency as Weekly).weekDays.contains(it)) }
         v.frequencyWeekDaysList.adapter = SimpleRecyclerAdapter(data, ::WeekDayViewHolder)
         return v
     }

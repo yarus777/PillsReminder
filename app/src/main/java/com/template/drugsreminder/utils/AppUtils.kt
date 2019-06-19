@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken
 import com.template.drugsreminder.models.WeekDay
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 fun EditText.addOnTextChangedListener(listener: (String) -> Unit): TextWatcher {
     val watcher = object : TextWatcher {
@@ -25,8 +26,11 @@ fun EditText.addOnTextChangedListener(listener: (String) -> Unit): TextWatcher {
     return watcher
 }
 
-fun View.inflate(@LayoutRes rId: Int, parent: ViewGroup? = null, attachToParent: Boolean = false) = context.inflate(rId, parent, attachToParent)
-fun Context.inflate(@LayoutRes rId: Int, parent: ViewGroup? = null, attachToParent: Boolean = false): View = LayoutInflater.from(this).inflate(rId, parent, attachToParent)
+fun View.inflate(@LayoutRes rId: Int, parent: ViewGroup? = null, attachToParent: Boolean = false) =
+    context.inflate(rId, parent, attachToParent)
+
+fun Context.inflate(@LayoutRes rId: Int, parent: ViewGroup? = null, attachToParent: Boolean = false): View =
+    LayoutInflater.from(this).inflate(rId, parent, attachToParent)
 
 inline fun <reified T> genericType() = object : TypeToken<T>() {}.type
 
@@ -49,7 +53,19 @@ fun Calendar.resetToStartOfDay() = apply {
     set(Calendar.MILLISECOND, 0)
 }
 
+fun Date.resetToStartOfDay() =
+    Calendar.getInstance().apply {
+        time = this@resetToStartOfDay
+        resetToStartOfDay()
+    }.time!!
+
+
 val Date.dayOfWeek: WeekDay
     get() {
-        return Calendar.getInstance().apply { time = this@dayOfWeek }.get(Calendar.DAY_OF_WEEK).let { calendarCode -> WeekDay.values().first { it.calendarCode == calendarCode } }
+        return Calendar.getInstance().apply { time = this@dayOfWeek }.get(Calendar.DAY_OF_WEEK)
+            .let { calendarCode -> WeekDay.values().first { it.calendarCode == calendarCode } }
     }
+
+fun <T> ArrayList<T>.fill(count: Int, itemProvider: () -> T) = apply {
+    (0 until count).forEach { add(itemProvider()) }
+}

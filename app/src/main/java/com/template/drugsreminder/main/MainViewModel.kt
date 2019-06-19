@@ -1,33 +1,42 @@
 package com.template.drugsreminder.main
 
+import androidx.lifecycle.MutableLiveData
 import com.template.drugsreminder.base.BaseViewModel
 import com.template.drugsreminder.data.medicine.MedicineManager
 import com.template.drugsreminder.models.*
 import com.template.drugsreminder.utils.dayOfWeek
 import com.template.drugsreminder.utils.daysTo
+import com.template.drugsreminder.utils.resetToStartOfDay
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class MainViewModel : BaseViewModel() {
 
-    lateinit var medicineList: List<MedicineModel>
+    val data = MutableLiveData<List<ScheduleMedicineModel>>()
 
     lateinit var pictures: List<Int>
 
-    fun deserializeData() {
-        medicineList = MedicineManager.list
+    init {
+        data.value = ArrayList()
     }
 
-    fun selectData(date: Date): ArrayList<ScheduleMedicineModel> {
+    private var internalData: List<MedicineModel>? = null
+
+    fun load() {
+        internalData = MedicineManager.load()
+    }
+
+    fun selectDate(date: Date) {
+        if(internalData == null) return
         val scheduleMedicineList = ArrayList<ScheduleMedicineModel>()
 
-        for (item in medicineList) {
-            if (item.duration.startDate >= date) continue
+        for (item in internalData!!) {
+            if (item.duration.startDate.resetToStartOfDay() > date) continue
 
             val needToAddItem = when (item.duration.duration) {
                 is WithoutDate -> checkFrequency(item.frequency, date, item)
-                is TillDate -> item.duration.duration.date >= date && checkFrequency(item.frequency, date, item)
+                is TillDate -> item.duration.duration.date.resetToStartOfDay() >= date && checkFrequency(item.frequency, date, item)
                 is DurationCount -> {
                     val endDate = Calendar.getInstance()
                         .apply { add(Calendar.DAY_OF_MONTH, item.duration.duration.durationCount) }.time
@@ -35,9 +44,21 @@ class MainViewModel : BaseViewModel() {
                 }
                 else -> false
             }
-            if (needToAddItem) scheduleMedicineList.add(ScheduleMedicineModel(item.name, pictures[item.img]))
+            if (needToAddItem)
+                scheduleMedicineList.apply {
+                    item.takingTimes.onEach {
+                        add(
+                            ScheduleMedicineModel(
+                                item.name,
+                                pictures[item.img],
+                                it.takingTime,
+                                it.dosage
+                            )
+                        )
+                    }
+                }
         }
-        return scheduleMedicineList
+        data.value = scheduleMedicineList
     }
 
     private fun checkFrequency(frequency: Frequency, date: Date, item: MedicineModel) =

@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:layout_marginBottom="10dp">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:orientation="horizontal">
 
-    <ImageView android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:src="@drawable/ic_cancel"
-               android:layout_gravity="center"
-               android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/deleteTakingTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_cancel"
+        android:visibility="invisible"/>
 
     <LinearLayout android:layout_width="0dp"
                   android:layout_height="wrap_content"
+                  android:layout_marginStart="10dp"
                   android:layout_weight="0.3"
-                  android:orientation="vertical"
-                  android:layout_marginStart="10dp">
+                  android:orientation="vertical">
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
@@ -24,20 +27,20 @@
                   android:textSize="16dp"/>
 
         <TextView
-                android:id="@+id/addTakingTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="6:00"
-                android:textSize="14dp"
-                android:textColor="@color/gray"
-                android:layout_marginBottom="10dp"/>
+            android:id="@+id/addTakingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/gray"
+            android:textSize="14dp"
+            tools:text="6:00"/>
 
     </LinearLayout>
 
     <LinearLayout android:layout_width="0dp"
                   android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:layout_weight="0.7">
+                  android:layout_weight="0.7"
+                  android:orientation="vertical">
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
@@ -50,20 +53,20 @@
                       android:orientation="horizontal">
 
             <EditText
-                    android:id="@+id/addTakingTimeDosage"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
-                    tools:text="2.5"
-                    android:textSize="14dp"
-                    android:textColor="@color/gray"
-                    android:background="@android:color/transparent"/>
+                android:id="@+id/addTakingTimeDosage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:background="@android:color/transparent"
+                android:textColor="@color/gray"
+                android:textSize="14dp"
+                tools:text="2.5"/>
 
             <Spinner
-                    android:id="@+id/addTakingTimeDosageSpinner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.7"/>
+                android:id="@+id/addTakingTimeDosageSpinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7"/>
 
         </LinearLayout>
 
